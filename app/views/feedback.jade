@@ -1,0 +1,26 @@
+extends layout
+
+block content
+  .container
+    table.table.table-striped.table-bordered
+        thead(style="{backgroud-color:blue}")
+            th 时间
+            th 姓名
+            th 内容
+            th 邮件地址
+            th id
+        tbody
+          script(src="/js/test.js")
+          .container
+            each feedback in feedbacks
+                    tr 
+                        //td #{moment(feedback.moment).format()}
+                        //td #{feedback.moment}
+                        
+                        td
+                            script var c = "#{feedback.moment}"; document.write(moment(c).format('YYYY MMM Do, hh:mm:ss'));
+                        td #{feedback.name}
+                        td #{feedback.content}
+                        td #{feedback.email}
+                        td #{feedback.id}
+    button#testButton.btn.btn-default(type="button") TestHere

@@ -1,0 +1,15 @@
+[
+	{
+		"username" : "jerry",
+		"password" : "1234",
+		"id" : "fwdvgue8-d32e-4425-bdc8-083a10asxc26",
+		"isAdmin" : 0
+	},
+
+	{
+		"username" : "admin",
+		"password" : "admin",
+		"id" : "fdvxaue8-d31e-4425-bdc8-0dvcs3asxc26",
+		"isAdmin" : 1
+	}
+]
