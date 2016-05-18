@@ -25,6 +25,7 @@ app.set('view engine', 'jade');
 //static serv folder setup
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'node_modules/moment/min')));
+app.use(express.static(path.join(__dirname, 'util/shared')));
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));

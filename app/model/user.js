@@ -18,28 +18,27 @@ var UserSchema = new Schema({
 	githubAccount : String,
 	isAdmin : {type:Boolean, 'default':false},
 
-	roles : [{
-		roleName : String,
-		roleProfile : {type:Schema.Types.ObjectId}
-	}]
+	coachProfile:{type:Schema.Types.ObjectId, ref:"Coach"},
+	playerProfile:{type:Schema.Types.ObjectId, ref:"Player"}
 });
 
-UserSchema.methods.isRoleOf = function(aRole) {
-		for (var role in this.roles) {
-		if (role.roleName === aRole) {
-			return true;
-		};
-	}
-
-	return false;
-}
 
 UserSchema.methods.isCoach = function(){
-	return this.isRoleOf("Coach");
+	if (this.coachProfile) {
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 
 UserSchema.methods.isPlayer = function(){
-	return this.isRoleOf("Player");
+	if (this.playerProfile) {
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 
 
