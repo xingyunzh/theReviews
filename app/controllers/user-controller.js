@@ -1,5 +1,4 @@
 var _ = require("lodash");
-var moment = require("moment");
 
 var User = require("../model/user");
 
@@ -55,8 +54,6 @@ exports.deleteById = function(req, res){
 
 exports.add = function(req, res){
 	if(req.body.name && req.body.email && req.body.username && req.body.password){
-		// var id = uuid.v4();
-		var momt = moment();
 		var success = "success";
 
 		var feedback = new User({
