@@ -12,7 +12,6 @@ exports.getAll = function(req, res) {
 	});
 };
 
-
 exports.getByEmail = function(req, res){
 	var emailToSearch = req.params.email;
 
