@@ -55,7 +55,7 @@ exports.add = function(req, res){
 	if(req.body.name && req.body.email && req.body.username && req.body.password){
 		var success = "success";
 
-		var feedback = new User({
+		var user = new User({
 			name  : req.body.name,
 			email : req.body.email,
 			username : req.body.username,
@@ -66,14 +66,13 @@ exports.add = function(req, res){
 		});
 
 
-		feedback.save(function(error){
+		user.save(function(error){
 			if (error) {
 				success = 'add fail! - save err:' + error;	
 			};
 		})
-		// feedbackData.push(feedback);
 
-		res.json({status:success, body : { id : feedback._id}});
+		res.json({status:success, body : { id : user._id}});
 	}
 	else {
 		res.sendStatus(422);
