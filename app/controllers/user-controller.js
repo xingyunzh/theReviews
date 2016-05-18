@@ -65,7 +65,6 @@ exports.add = function(req, res){
 			success = 'add fail - creation failure.'
 		});
 
-
 		user.save(function(error){
 			if (error) {
 				success = 'add fail! - save err:' + error;	
