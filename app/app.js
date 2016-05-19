@@ -6,6 +6,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var q = require('q');
 var auth = require("./authenticator/auth");
 var router = require("./routes/router");
 
@@ -15,6 +16,7 @@ mongoose.connect(mongoDBUrl, function(err){
     console.log("mongo db connect fail!" + err);
   };
 });
+mongoose.Promise = q.Promise;
 
 var app = express();
 
@@ -35,13 +37,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 
-app.use(expsession({
-  secret:"starhome",
-  resave:false,
-  saveUninitialized:false
-}));
+// app.use(expsession({
+//   secret:"starhome",
+//   resave:false,
+//   saveUninitialized:false
+// }));
 
-auth.configSession(app); 
+// auth.configSession(app); 
 
 
 router.setupRouters(app);

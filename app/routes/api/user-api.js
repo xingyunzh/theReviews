@@ -10,7 +10,7 @@ router.get('/getall',con.getAll);
 
 
 
-router.get('/getbyemail/:email', con.getByEmail);
+router.get('/getbyemail/:email', auth.authenticator,con.getByEmail);
 
 router.get('/getbyid/:id', con.getById);
 
