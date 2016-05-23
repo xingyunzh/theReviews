@@ -116,6 +116,9 @@ exports.add = function(req, res){
 			user.save(function(error) {
 				if (error) {
 					success = 'add fail! - save err:' + error;
+
+					user.playerProfile.remove();
+					user.coachProfile.remove();
 				};
 			})
 		};

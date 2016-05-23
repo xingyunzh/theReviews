@@ -42,4 +42,6 @@ var ReviewSchema = new Schema({
 	state : Number,  //should be one of the ReviewState attributes Initial, Ongoing, ....
 });
 
+ReviewSchema.statics.ReviewState = ReviewState;
+
 module.exports = mongoose.model('Review', ReviewSchema);
