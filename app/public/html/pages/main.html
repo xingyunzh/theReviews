@@ -3,5 +3,27 @@
 		<p style="color:white">This is main.html</p>
 	</div>
 
-	<a ui-sref="login" class="btn btn-default">Login</a>
+	<p>current user:</p>	<br>
+	
+	<div class="table-responsive" ng-hide="user == null">
+		<table class="table table-striped table-bordered" >
+			<tr>
+				<th>key</th>
+				<th>value</th>
+			</tr>
+
+			<tr ng-repeat="(key, value) in user">
+				<td>{{key}}</td>
+				<td>{{value}}</td>
+			</tr>
+
+		</table>		
+
+	</div>
+
+
+
+	<a ui-sref="login" class="btn btn-default" ng-show="loginButtonShow">Login</a>
+	<a href="#" ng-hide="loginButtonShow" class="btn btn-default" ng-click="logout()">Logout</a>
+	<a href="" class="btn btn-default" ng-click="refreshUser()">Refresh User</a>
 </div>

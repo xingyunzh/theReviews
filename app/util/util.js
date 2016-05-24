@@ -6,7 +6,7 @@
 	var util = {};
 
 	util.convDateToString = function(date){
-		if (date isinstanceof Date) {
+		if (date instanceof Date) {
 			return date.getTime().toString();
 		};
 
@@ -19,4 +19,7 @@
 		return date;
 	};
 
+
+
+	return util;
 }));

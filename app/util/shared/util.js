@@ -19,5 +19,16 @@
 		return date;
 	};
 
+		//convenient methods to contruct uniformat response
+	util.wrapBody = function(obj, statusCode){
+		var statusCode = arguments[1] ? arguments[1] : 'S';
+		var wrapper = {
+			status: statusCode,
+			body : obj
+		};
+
+		return wrapper;
+	};
+
 	return util;
 }));

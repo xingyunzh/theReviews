@@ -2,7 +2,8 @@ app.config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $ur
 	$urlRouterProvider.when("", "/main");
 	$stateProvider.state("main", {
 		url:"/main",
-		templateUrl:"html/pages/main.html"
+		templateUrl:"html/pages/main.html",
+		controller:"mainController"
 	})
 	.state("aboutus",{
 		url:"/aboutus",

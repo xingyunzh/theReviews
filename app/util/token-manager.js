@@ -9,7 +9,7 @@ var livetimeout = 1000 * 60 * 60 * 24;
 
 var manager = {};
 
-manager.resolveTockenFromUser = function(user){
+manager.resolveTokenFromUser = function(user){
 	var defer = q.defer();
 	var uid = user._id;
 

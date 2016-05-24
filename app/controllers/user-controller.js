@@ -5,12 +5,19 @@ var User = require("../model/user");
 var Coach = require("../model/coach");
 var Player = require("../model/player");
 
+function secureUserInfo(user){
+	// user.password = null;
+	return user;
+}
+
 exports.getAll = function(req, res) {
 	User.find(function(err, allUsers) {
 		if (err) {
-			res.sendStatus(404);
-		} else {
-			res.json(allUsers);
+			res.json(util.wrapBody(err, "E"));
+		}
+		else {
+			_.map(allUsers, secureUserInfo);
+			res.json(util.wrapBody(allUsers));
 		}
 	});
 };
@@ -20,10 +27,11 @@ exports.getByEmail = function(req, res){
 
 	User.find({email : emailToSearch}, function(err, user){
 		if (err) {
-			res.sendStatus(404);
+			res.json(util.wrapBody(err, "E"));
 		}
 		else {
-			res.json(user);
+			secureUserInfo(user);
+			res.json(util.wrapBody(user));
 		}
 	});
 };
@@ -33,10 +41,11 @@ exports.getById = function(req, res){
 
 	User.findById(idToSearch).populate('coachProfile').populate('playerProfile').exec(function(err, user){
 		if (err) {
-			res.sendStatus(404);
+			res.json(util.wrapBody(err, "E"));
 		}
 		else {
-			res.json(user);
+			secureUserInfo(user);
+			res.json(util.wrapBody(user));
 		}
 	});
 };
@@ -46,10 +55,10 @@ exports.deleteById = function(req, res){
 
 	User.findByIdAndRemove(idToSearch, function(err, user){
 		if (err) {
-			res.sendStatus(404);
+			res.json(util.wrapBody(err, "E"));
 		}
 		else {
-			res.json({stats:"success", body : {id : idToSearch}});
+			res.json(util.wrapBody(""));
 		}
 	});
 };
@@ -123,9 +132,9 @@ exports.add = function(req, res){
 			})
 		};
 
-		res.json({status:success, body : { id : user._id}});
+		res.json(util.wrapBody({id:user._id}));
 	}
 	else {
-		res.sendStatus(422);
+		res.json(util.wrapBody("", "E"));
 	}
 };

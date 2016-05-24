@@ -1,11 +1,30 @@
 <div class="container">
-	<p id="r_id_login_title_p">the Review</p>
+	
+	<p id="r-id-login-title-p" class="text-center col-sm-4 col-sm-offset-4 col-xs-8 col-xs-offset-2">theReviews</p>
+
+
+		
+
+	<form id="r-id-login-form" class="img-responsive center-block">
+		<div class="form-group">
+			<label for="r-id-login-username">Username:</label>
+			<input type="text" id="r-id-login-username" placeholder="your username" class="form-control" ng-model="usernameInput">
+		</div>
+		<div class="form-group">				
+			<label for="r-id-login-password">Password:</label>
+			<input type="password" id="r-id-login-password" class="form-control" ng-model="passwordInput">
+		</div>
+			
+		<button class="btn btn-submit text-center col-sm-4 col-sm-offset-4 col-xs-8 col-xs-offset-2" id="r-id-login-submit" ng-click="login()" ng-disabled="disableLoginButton">Login</button>
+	</form>		
+
+
 	<div>
-		<input type="email" placeholder="your email" class="form-control" ng-model="emailInput">
-		<input type="password" class="form-control" ng-model="passwordInput">
-		<button class="btn btn-default" ng-click="login()">Submit</button>
+		<p id="r-id-login-footer-p" class="text-center col-sm-4 col-sm-offset-4 col-xs-8 col-xs-offset-2">Copyright&#169; xingyunzh.com</p>
 	</div>
-	<div>
-		<p  id="r_id_login_footer_p">Copy Right. xingyunzh.com</p>
-	</div>
+
+
+
+
+
 </div>

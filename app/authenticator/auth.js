@@ -3,6 +3,7 @@ var router = express.Router();
 var _ = require("lodash");
 var tokenManager = require("../util/token-manager");
 var User = require("../model/user");
+var util = require("../util/shared/util");
 
 var auth = {};
 auth.router = router;
@@ -34,15 +35,17 @@ auth.router.route("/login")
 	.post(function(req, res){
 		User.findOne({username:req.body.username, password:req.body.password}).exec().then(function(user){
 			if (user) {
-				tokenManager.resolveTockenFromUser(user).then(function(tks){
-					res.json({status:0, token:tks});
+				tokenManager.resolveTokenFromUser(user).then(function(tks){
+					res.json(util.wrapBody({token:tks.jwtToken, uid:tks.uid}));
+				}).catch(function(error){
+					res.json(util.wrapBody(error, "SystemError"))
 				})
 			}else {
-				res.sendStatus(404);
+				res.json(util.wrapBody(null, 'NotFound'));
 			};
 		})
 		.catch(function(error){
-			res.sendStatus(500);
+			res.json(util, wrapBody(null, 'ServerError'));
 		});
 	});
 
