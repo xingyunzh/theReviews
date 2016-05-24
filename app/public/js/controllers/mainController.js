@@ -1,6 +1,5 @@
 app.controller('mainController', ['$scope', '$rootScope', function ($scope, $rootScope) {
 	$scope.loginButtonShow = $rootScope.token == undefined;
-	$scope.user = $rootScope.user;
 	
 	$scope.logout = function(){
 		$rootScope.token = null;
@@ -9,7 +8,4 @@ app.controller('mainController', ['$scope', '$rootScope', function ($scope, $roo
 		$scope.loginButtonShow = true;
 	}
 
-	$scope.refreshUser = function(){
-		$scope.user = $rootScope.user;
-	}
 }]);
