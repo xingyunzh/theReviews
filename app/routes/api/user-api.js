@@ -14,6 +14,8 @@ router.get('/getbyemail/:email', auth.authenticator,con.getByEmail);
 
 router.get('/getbyid/:id', con.getById);
 
+router.get('/getbyusername/:username', con.getByUsername);
+
 router.get('/deletebyid/:id', con.deleteById);
 
 router.post('/add', con.add);

@@ -36,6 +36,20 @@ exports.getByEmail = function(req, res){
 	});
 };
 
+exports.getByUsername = function(req, res){
+	var uname = req.params.username;
+
+	User.findOne({username : uname}, function(err, user){
+		if (err) {
+			res.json(util.wrapBody(err, "E"));
+		}
+		else {
+			secureUserInfo(user);
+			res.json(util.wrapBody(user));
+		}
+	});
+};
+
 exports.getById = function(req, res){
 	var idToSearch = req.params.id;
 

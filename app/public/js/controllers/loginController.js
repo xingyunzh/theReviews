@@ -39,4 +39,8 @@ app.controller("loginController", function($rootScope, $scope, loginService, use
 			
 		};
 	}
+
+	$scope.goRegister = function(){
+		$rootScope.$state.go("register");
+	}
 });

@@ -1,4 +1,6 @@
 @fontSizeLogo:60px;
+@fontSizePageTitle:20px;
+@mainColor:blue;
 
 #r-id-login-title-p {
 	margin-top : 80px;
@@ -6,6 +8,7 @@
 
 	text-align : center;
 	font-size : @fontSizeLogo;
+	color:@mainColor;
 }
 
 #r-id-login-footer-p {
@@ -16,7 +19,23 @@
 	margin-top:20px;
 }
 
-#r-id-login-form {
+#r-id-login-register {
+	margin-top:20px;
+}
+
+#r-id-login-form, #r-id-register-form {
 	width : 400px;
 }
 
+#r-id-register-title-p {
+	margin-top:80px;
+	margin-bottom:30px;
+
+	text-align:center;
+	font-size:@fontSizePageTitle;
+	color:@mainColor;
+}
+
+#r-id-register-submit {
+	margin-top:20px;
+}

@@ -13,13 +13,7 @@ app.service('userService', ["$http", "$q", function ($http, $q) {
 		$http(req).then(function success(response){
 			var data = response.data;
 			var user = data.body;
-
-			if (user) {
-				deferred.resolve(user);
-			}
-			else {
-				deferred.reject("NotFound");
-			};
+			deferred.resolve(user);
 
 		}, function fail(response){
 			deferred.reject(response.statusText);
@@ -28,4 +22,50 @@ app.service('userService', ["$http", "$q", function ($http, $q) {
 		return deferred.promise;
 	}
 	
+	this.getUserByUsername = function(username){
+		var req = {
+			method : "GET",
+			url:"/api/user/getbyusername/" + username,
+			headers : {
+				"Content-Type":"application/json"
+			}
+		}
+
+		var deferred = $q.defer();
+		$http(req).then(function success(response){
+			var data = response.data;
+			var user = data.body;
+
+			deferred.resolve(user);
+		}, function fail(response) {
+			deferred.reject(response.statusText);
+		});
+
+		return deferred.promise;
+	}
+
+	this.addUser = function (userdata) {
+		 var req = {
+		 	method : "POST",
+		 	url : "/api/user/add",
+		 	headers:{
+		 		"Content-Type" : "application/json"
+		 	},
+		 	data: userdata
+		 }
+
+		 var deferred = $q.defer();
+		 $http(req).then(function success(response) {
+		 	if (response.data.status === 'S') {
+		 		deferred.resolve(response.data.body);
+		 	} else{
+		 		deferred.reject(response.data.status);
+		 	};
+
+		 }, function fail(response) {
+		 	 deferred.reject(response.statusText);
+		 });
+
+		 return deferred.promise;
+	}
 }]);
