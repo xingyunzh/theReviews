@@ -7,6 +7,7 @@ app.controller("registerController", function($rootScope, $scope, $q, userServic
 
 	var kUsernameValidationSuccessText = "The username is OK to use.";
 	var kUsernameValidationFailText =  "The username is already used.";
+	var kUsernameValidationEmptyText = "Please fill the username.";
 
 	var usernameToValidate = null;
 
@@ -57,6 +58,12 @@ app.controller("registerController", function($rootScope, $scope, $q, userServic
 
 	$scope.validateUsername=function() {
 		usernameToValidate = $scope.formdata.username;
+
+		if (usernameToValidate == null || usernameToValidate.length < 1) {
+			$scope.validationResult = kUsernameValidationEmptyText;
+
+			return; 
+		};
 
 		var deferred = $q.defer();
 		userService.getUserByUsername(usernameToValidate).then(function success(user) {
