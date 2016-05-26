@@ -2,25 +2,28 @@ app.controller("registerController", function($rootScope, $scope, $q, userServic
 	$scope.formdata = {sex:"male"};
 	$scope.validationResult = null;
 
+	$scope.birth = "1990-10-01";
+	$scope.graduatedDate = "2001-07-01";
+
 	var kUsernameValidationSuccessText = "The username is OK to use.";
 	var kUsernameValidationFailText =  "The username is already used.";
 
 	var usernameToValidate = null;
 
 	function contentValidate(argument) {
-		 if ($scope.formdata.username != usernameToValidate || $scope.validationResult != kUsernameValidationSuccessText) {
-		 	return "Please fill your username and click validate button";
+		 if ($scope.formdata.username == null || $scope.formdata.username != usernameToValidate || $scope.validationResult != kUsernameValidationSuccessText) {
+		 	return "Please ensure username is unique by clicking the validate button";
 		 }; 
 
-		 if ($scope.formdata.password.length < 6 || $scope.formdata.password !== $scope.formdata.cpassword) {
+		 if ($scope.formdata.password == null || $scope.formdata.password.length < 6 || $scope.formdata.password !== $scope.formdata.cpassword) {
 		 	return "Please set your password and confirm. Password should be no shorter than 6 letters."
 		 };
 
-		 if ($scope.formdata.name.length < 1) {
+		 if ($scope.formdata.name == null) {
 		 	return "Please set your name."
 		 };
 
-		 if ($scope.formdata.colleage.length < 1) {
+		 if ($scope.formdata.colleage == null) {
 		 	return "Please set your colleage."
 		 };
 
@@ -28,12 +31,8 @@ app.controller("registerController", function($rootScope, $scope, $q, userServic
 		 	return "Please set your email correctly.";
 		 };
 
-		 if ($scope.formdata.tel.length < 8) {
-		 	return "Please set your tel number";
-		 };
-
-		 if ($scope.formdata.graduatedDate.length < 2) {
-		 	return "Please set your graduated date."
+		 if ($scope.formdata.tel == null || $scope.formdata.tel.length < 8) {
+		 	return "Please set your tel number correctly";
 		 };
 
 		 return null;
@@ -45,6 +44,9 @@ app.controller("registerController", function($rootScope, $scope, $q, userServic
 			toastr.error(validateMessage, "Not Completed", {timeOut:0, closeButton:true});
 			return;
 		}
+
+		$scope.formdata.birth = util.convDateToString(new Date($scope.birth));
+		$scope.formdata.graduatedDate = util.convDateToString(new Date($scope.graduatedDate));
 
 		userService.addUser($scope.formdata).then(function success(data) {
 			 $rootScope.$state.go("main");  

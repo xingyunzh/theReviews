@@ -1,5 +1,4 @@
 <div class="container">
-	
 	<p id="r-id-register-title-p" class="text-center col-sm-4 col-sm-offset-4 col-xs-8 col-xs-offset-2">Register new user</p> <br>
 
 
@@ -21,7 +20,7 @@
 		</div>
 
 		<div class="form-group">				
-			<label for="r-id-register-cpassword">Confirmed Password*:</label>
+			<label for="r-id-register-cpassword">Confirm Password*:</label>
 			<input type="password" id="r-id-register-cpassword" class="form-control" ng-model="formdata.cpassword">
 		</div>
 
@@ -48,7 +47,11 @@
 
 		<div class="form-group">
 			<label for="r-id-register-birth">Birthday:</label>
-			<input type="text" id="r-id-register-birth" ng-model="formdata.birth" class="form-control">
+
+			<div datepicker date-format="yyyy-MM-dd">
+				<input type="text" id="r-id-register-birth" ng-model="birth" class="form-control">
+			</div>
+			
 		</div>
 
 		<div class="form-group">
@@ -83,7 +86,10 @@
 
 		<div class="form-group">
 			<label for="r-id-register-graduatedDate">Graduated Date*:</label>
-			<input type="text" id="r-id-register-graduatedDate" ng-model="formdata.graduatedDate" class="form-control">
+
+			<div datepicker date-format="yyyy-MM-dd">
+				<input type="text" id="r-id-register-graduatedDate" ng-model="graduatedDate" class="form-control">
+			</div>
 		</div>
 			
 		<div class="form-group">

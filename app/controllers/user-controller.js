@@ -93,7 +93,7 @@ exports.add = function(req, res){
 			address : req.body.address,
 			username : req.body.username,
 			password : req.body.password,
-			joinDate : util.convStringToDate(req.body.joinDate),
+			joinDate : util.convStringToDate(new Date()),
 			graduatedDate : util.convStringToDate(req.body.graduatedDate),
 			githubAccount : req.body.githubAccount,
 
