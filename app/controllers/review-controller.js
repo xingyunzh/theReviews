@@ -1,38 +1,55 @@
 var _ = require("lodash");
 var util = require("../util/shared/util");
 
-var Team = require("../model/team");
+var Review = require("../model/Review");
 var ObjectId = require("mongoose").mongo.ObjectId;
 
+
 exports.create = function (req, res) { 
-	 var team = new Team({
+	 var review = new Review({
 	 	name : req.body.name,
-	 	description : req.body.description,
-	 	setupDate : new Date(),
-	 	leader : req.user,
-	 	
-	 	members : _.map(req.body.members, function (memberId) {
+	 	owner : ObjectId(req.user._id),
+
+	 	reviewers :  _.map(req.body.reviewers, function (memberId) {
 	 		 return ObjectId(memberId);
 	 	}),
-	 	coaches : _.map(req.body.coaches, function (coachId) {
-	 		 return ObjectId(coachId);
-	 	})
+
+	 	approvers:  _.map(req.body.approvers, function (memberId) {
+	 		 return ObjectId(memberId);
+	 	}),
+
+	 	mediator : ObjectId(req.body.mediator),
+
+	 	observers :  _.map(req.body.observers, function (memberId) {
+	 		 return ObjectId(memberId);
+	 	}),
+
+	 	gitURL : req.body.gitURL,
+	 	docURL : req.body.docURL,
+
+	 	createDate : new Date(),
+	 	startDate : req.body.startDate,
+	 	dueDate : req.body.dueDate,
+	 	meetings : req.body.meetings,
+
+	 	state : Review.State.Initial,
+	 	contentType : req.body.contentType,
 	 });
 
-	 team.save(function (error) {
+	 review.save(function (error) {
 	 	 /* body... */ 
 	 	 if (error) {
 	 	 	res.json(util.wrapBody(error, 'E'));
 	 	 }
 	 	 else {
-	 	 	res.json(util.wrapBody({id:team._id}));
+	 	 	res.json(util.wrapBody({id:review._id}));
 	 	 };
 	 });
 }
 
 exports.getAll = function (req, res) {
 	 /* body... */ 
-	 Team.find().exec().then(function success(data) {
+	 Review.find().exec().then(function success(data) {
 	 	 // body...  
 	 	 res.json(util.wrapBody(data));
 	 }, function fail(data) {
@@ -44,7 +61,7 @@ exports.getAll = function (req, res) {
 
 exports.getById = function(req, res) {
 	 // body...  
-	 Team.findById(req.params.id).populate("members coaches leader").exec().then(function success(data) {
+	 Review.findById(req.params.id).populate("reviewers approvers mediator observers owner").exec().then(function success(data) {
 	 	 // body...  
 	 	 res.json(util.wrapBody(data));
 	 }, function fail (error) {
@@ -55,7 +72,7 @@ exports.getById = function(req, res) {
 
 exports.getByName = function (req, res) {
 	 /* body... */ 
-	 Team.find({name:req.params.name}).populate("members coaches leader").exec().then(function success(argument) {
+	 Review.find({name:req.params.name}).populate("reviewers approvers mediator observers owner").exec().then(function success(argument) {
 	 	 /* body... */ 
 	 	 res.json(util.wrapBody(argument));
 	 }, function fail(argument) {
@@ -68,7 +85,7 @@ exports.updateById = function (req, res) {
 	 /* body... */ 
 	 var updateContent = req.body.updateContent;
 
-	 Team.findByIdAndUpdate(req.params.id, updateContent,{"new" : true}).exec().then(function success(argument) {
+	 Review.findByIdAndUpdate(req.params.id, updateContent,{"new" : true}).exec().then(function success(argument) {
 	 	 res.json(util.wrapBody(argument));
 	 }, function fail(argument) {
 	 	 res.json(util.wrapBody(argument, "E"));
@@ -76,7 +93,7 @@ exports.updateById = function (req, res) {
 }
 
 exports.deleteById = function (req, res) {
-	 Team.findByIdAndRemove(req.params.id, function (error, data) {
+	 Review.findByIdAndRemove(req.params.id, function (error, data) {
 	 	 if (error) {
 	 	 	res.json(util.wrapBody(error, "E"));
 	 	 }else {

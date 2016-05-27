@@ -3,7 +3,9 @@ var Schema = mongoose.Schema;
 
 var ChangeRequestSchema = new Schema({
 	reviews:[{type:Schema.Types.ObjectId, ref:"Review"}],
+	owner:{type:Schema.Types.ObjectId, ref:"User"},
 	
+	name:String,
 	description : String,
 	impact:String,
 

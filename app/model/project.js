@@ -12,6 +12,7 @@ var ProjectSchema = new Schema({
 	reviews:[{type:Schema.Types.ObjectId, ref:"Review"}],
 	changeRequests:[{type:Schema.Types.ObjectId, ref:"ChangeRequest"}],
 
+	name : String,
 	description : String,
 	createDate : Date,
 	endDate: Date,
@@ -19,7 +20,7 @@ var ProjectSchema = new Schema({
 	phase:Number,
 	state:Number,
 
-	iterations:[{type:Schema.Types.ObjectId, ref:"Iteration"}];
+	iterations:[{type:Schema.Types.ObjectId, ref:"Iteration"}]
 });
 
 module.exports = mongoose.model('Project', ProjectSchema);

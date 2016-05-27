@@ -4,6 +4,7 @@ var Schema = mongoose.Schema;
 var util = require("../util/shared/util");
 
 var ReviewSchema = new Schema({
+	name : String,
 	owner : {type:Schema.Types.ObjectId, ref:"User"},
 	reviewers : [{type:Schema.Types.ObjectId, ref"User"}],
 	approvers : [{type:Schema.Types.ObjectId, ref"User"}],
