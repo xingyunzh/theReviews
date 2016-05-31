@@ -20,5 +20,7 @@ router.get('/deletebyid/:id', con.deleteById);
 
 router.post('/add', con.add);
 
+router.post('/updateprofile', auth.authenticator, con.updateProfile);
+
 
 module.exports = router;

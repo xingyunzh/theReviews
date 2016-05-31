@@ -20,7 +20,7 @@ app.service('userService', ["$http", "$q", function ($http, $q) {
 		});	
 
 		return deferred.promise;
-	}
+	};
 	
 	this.getUserByUsername = function(username){
 		var req = {
@@ -42,7 +42,7 @@ app.service('userService', ["$http", "$q", function ($http, $q) {
 		});
 
 		return deferred.promise;
-	}
+	};
 
 	this.addUser = function (userdata) {
 		 var req = {
@@ -67,5 +67,32 @@ app.service('userService', ["$http", "$q", function ($http, $q) {
 		 });
 
 		 return deferred.promise;
+	};
+
+	this.updateProfile = function (userdata, token) {
+		 var req = {
+		 	method : "POST",
+		 	url : "/api/user/updateprofile",
+		 	headers:{
+		 		"Content-Type":"application/json",
+		 		"x-cross-token":token
+		 	},
+		 	data:{updateContent:userdata}
+		 }
+
+		 var deferred = $q.defer();
+		 $http(req).then(function success (response) {
+		 	 if (response.data.status === 'S') {
+		 	 	deferrd.resolve(response.data.body);
+		 	 }else {
+		 	 	deferred.reject(response.data.status);
+		 	 };
+		 }, function fail (response) {
+		 	 deferred.reject(response.statusText);
+		 });
+
+		 return deferred.promise;
 	}
+
+
 }]);

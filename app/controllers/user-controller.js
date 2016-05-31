@@ -84,7 +84,7 @@ exports.add = function(req, res){
 		var user = new User({
 			name  : req.body.name,
 			sex : req.body.sex,
-			birth : util.convStringToDate(req.body.birth),
+			birth : req.body.birth,
 			colleage : req.body.colleage,
 			major : req.body.major,
 			lang : req.body.lang,
@@ -93,8 +93,8 @@ exports.add = function(req, res){
 			address : req.body.address,
 			username : req.body.username,
 			password : req.body.password,
-			joinDate : util.convStringToDate(new Date()),
-			graduatedDate : util.convStringToDate(req.body.graduatedDate),
+			joinDate : new Date(),
+			graduatedDate : req.body.graduatedDate,
 			githubAccount : req.body.githubAccount,
 
 		}, function(err, data) {
@@ -103,7 +103,7 @@ exports.add = function(req, res){
 
 		if (req.body.roleName === "Coach") {
 			var coachProfile = new Coach({
-				careerStartDate: util.convStringToDate(req.body.careerStartDate),
+				careerStartDate: req.body.careerStartDate,
 				company: req.body.company,
 				skills: req.body.skills,
 				description: req.body.description,
@@ -120,8 +120,8 @@ exports.add = function(req, res){
 		}
 		else if (req.body.roleName === "Player") {
 			var playerProfile = new Player({
-				colleageEnterDate: util.convStringToDate(req.body.colleageEnterDate),
-				colleageExitDate: util.convStringToDate(req.body.colleageExitDate),
+				colleageEnterDate: req.body.colleageEnterDate,
+				colleageExitDate: req.body.colleageExitDate,
 				interestArea: req.body.interestArea,
 				interestRoles: req.body.interestRoles,
 			});
@@ -152,3 +152,45 @@ exports.add = function(req, res){
 		res.json(util.wrapBody("", "E"));
 	}
 };
+
+
+exports.updateProfile = function (req, res) {
+	var coach = null;
+	var player = null;
+
+	var updateContent = req.body.updateContent;
+	var needsSave = false;
+
+	for (var key in updateContent) {
+		if (key == "coachProfile") {
+			for (var k in updateContent.coachProfile){
+				user.coachProfile[k] = updateContent.coachProfile[k];
+			};
+
+			usre.coachProfile.save(function (error) {
+				 res.json(util.wrapBody(error, "E:save error"));
+			});
+		}
+		else if (key == "playerProfile") {
+			for (var k in updateContent.playerProfile){
+				user.playerProfile[k] = updateContent.playerProfile[k];
+			};
+
+			usre.playerProfile.save(function (error) {
+				 res.json(util.wrapBody(error, "E:save error"));
+			});
+		}
+		else {
+			user[key] = updateContent[key];
+			needsSave = true;
+		}
+	};
+
+	if (needsSave) {
+		user.save(function (error) {
+			 res.json(util.wrapBody(error, "E:save error"));
+		})
+	};
+
+	res.json(util.wrapBody({userId:user._id}));
+}

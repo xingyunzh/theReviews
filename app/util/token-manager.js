@@ -68,8 +68,10 @@ manager.resolveUserFromToken = function(tks) {
 					defer.resolve(null);
 					token.remove();
 				}else {
-					User.findById(token.uid, function(error, user){
+					User.findById(token.uid).populate("coachProfile playerProfile").exec().then(function(user){
 						defer.resolve(user);
+					}, function error (argument) {
+						defer.reject(argument);
 					});
 				};
 			})

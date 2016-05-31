@@ -3,6 +3,6 @@ var app = angular.module("app", ["ui.router", "720kb.datepicker"])
 	$rootScope.$state = $state;
 	$rootScope.$stateParams = $stateParams; 
 
-	// $state.go("main.aboutus");
+	$state.go("nav.main");
 }]);
 

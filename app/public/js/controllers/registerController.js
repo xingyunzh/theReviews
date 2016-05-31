@@ -1,9 +1,6 @@
 app.controller("registerController", function($rootScope, $scope, $q, userService) {
-	$scope.formdata = {sex:"male"};
+	$scope.formdata = {sex:"male", birth:new Date("1990-10-01"), graduatedDate:new Date("2001-07-01")};
 	$scope.validationResult = null;
-
-	$scope.birth = "1990-10-01";
-	$scope.graduatedDate = "2001-07-01";
 
 	var kUsernameValidationSuccessText = "The username is OK to use.";
 	var kUsernameValidationFailText =  "The username is already used.";
@@ -46,11 +43,8 @@ app.controller("registerController", function($rootScope, $scope, $q, userServic
 			return;
 		}
 
-		$scope.formdata.birth = util.convDateToString(new Date($scope.birth));
-		$scope.formdata.graduatedDate = util.convDateToString(new Date($scope.graduatedDate));
-
 		userService.addUser($scope.formdata).then(function success(data) {
-			 $rootScope.$state.go("main");  
+			 $rootScope.$state.go("nav.main");  
 		}, function fail(argument) {
 			  toastr.error("Register error. Please try it again later.", "System Error", {timeOut:5});
 		})

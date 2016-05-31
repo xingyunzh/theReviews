@@ -25,7 +25,7 @@ app.controller("loginController", function($rootScope, $scope, loginService, use
 					$rootScope.user = null;
 				});
 
-				$rootScope.$state.go("main");
+				$rootScope.$state.go("nav.main");
 			}, function error(data){
 				toastr.remove();
 
