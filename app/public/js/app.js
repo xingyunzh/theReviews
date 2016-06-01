@@ -1,4 +1,4 @@
-var app = angular.module("app", ["ui.router", "720kb.datepicker"])
+var app = angular.module("app", ["ui.router", "720kb.datepicker", "ui.bootstrap"])
 .run(['$rootScope', '$state', '$stateParams', function($rootScope, $state, $stateParams) {
 	$rootScope.$state = $state;
 	$rootScope.$stateParams = $stateParams; 
