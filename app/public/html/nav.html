@@ -17,12 +17,12 @@
 				<li><a href="#">Projects</a></li>
 				<li><a href="#">Reviews</a></li>
 				<li><a href="#">Meetings</a></li>
-				<li ng-hide="loginButtonShow">
+				<li ng-hide="user == null">
 					<p id="r-nav-id-name">Hello,{{user.name}}</p>
 				</li>
 
-				<li><button class="btn btn-primary navbar-btn r-nav-navbar-button" type="button" ng-show="loginButtonShow" ng-click="login()">Login</button></li>
-				<li><botton class="btn btn-primary navbar-btn r-nav-navbar-button" type="button" ng-hide="loginButtonShow" ng-click="logout()">Logout</button></li>
+				<li><button class="btn btn-primary navbar-btn r-nav-navbar-button" type="button" ng-show="token == undefined" ng-click="login()">Login</button></li>
+				<li><botton class="btn btn-primary navbar-btn r-nav-navbar-button" type="button" ng-hide="token == undefined" ng-click="logout()">Logout</button></li>
 			</ul>
 		</div>
 	<!-- </div> -->

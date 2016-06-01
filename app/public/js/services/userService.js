@@ -1,5 +1,27 @@
 app.service('userService', ["$http", "$q", function ($http, $q) {
-	
+	this.getCurrentUser = function(token){
+		
+		var deferred = $q.defer();
+		$http({
+			method:"GET",
+			url:"/auth/myself",
+			headers:{
+				"Content-Type":"application/json",
+				"x-access-token":token
+			}
+		}).then(function success(argument) {
+		   var data = argument.data;
+		   var user = data.body;
+		   
+		   deferred.resolve(user);
+		}, function error(argument) {
+			deferred.reject(argument.statusText);
+		});
+
+		return deferred.promise;
+	};
+
+
 	this.getUserById = function(uid){
 		var req = {
 			method:"GET",
@@ -75,7 +97,7 @@ app.service('userService', ["$http", "$q", function ($http, $q) {
 		 	url : "/api/user/updateprofile",
 		 	headers:{
 		 		"Content-Type":"application/json",
-		 		"x-cross-token":token
+		 		"x-access-token":token
 		 	},
 		 	data:{updateContent:userdata}
 		 }

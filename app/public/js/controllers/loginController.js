@@ -18,6 +18,9 @@ app.controller("loginController", function($rootScope, $scope, loginService, use
 				toastr.remove();
 
 				$rootScope.token = data.token;
+				if (typeof(Storage) !== "undefined") {
+					localStorage.token = data.token;
+				};
 
 				userService.getUserById(data.uid).then(function(user){
 					$rootScope.user = user;

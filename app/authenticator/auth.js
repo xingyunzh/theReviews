@@ -28,6 +28,11 @@ auth.authenticator = function(req, res, next){
 	}
 };
 
+auth.router.get("/myself", auth.authenticator, function (req, res) {
+	 /* body... */ 
+	 res.json(util.wrapBody(req.user));
+});
+
 auth.router.route("/login")
 	.get(function(req, res) {
 		res.render("login");

@@ -1,5 +1,6 @@
 app.controller('mainController', ['$scope', '$rootScope', function ($scope, $rootScope) {
 	$scope.loginButtonShow = $rootScope.token == undefined;
+	
 	$scope.projects = [{
 		name:"Artificial Robot",
 		ownername:"Mike K",
