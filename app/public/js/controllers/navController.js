@@ -4,7 +4,7 @@ app.controller('navController', ['$scope', '$rootScope', function ($scope, $root
 		$rootScope.user = null;
 
 		if (typeof(Storage) !== "undefined") {
-			localStorage.token = null;
+			localStorage.clear();
 		};
 	};
 

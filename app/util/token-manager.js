@@ -58,29 +58,44 @@ manager.resolveTokenFromUser = function(user){
 manager.resolveUserFromToken = function(tks) {
 	var defer = q.defer();
 
-	var payload = jwt.decode(tks, secret);
-	if (payload.id) {
-		Token.findOne({uid : payload.id}).exec()
-			.then(function(token){
-				var now = new Date().getTime();
-				var createTime = token.createDate.getTime();
-				if (token === null || new Date().getTime() - token.createDate.getTime() > livetimeout) {
-					defer.resolve(null);
-					token.remove();
-				}else {
-					User.findById(token.uid).populate("coachProfile playerProfile").exec().then(function(user){
-						defer.resolve(user);
-					}, function error (argument) {
-						defer.reject(argument);
+	//protect code
+	if (tks == null || tks.length < 10) {
+		defer.reject({
+			error: "tks param error"
+		});
+	} else {
+		var payload = jwt.decode(tks, secret);
+		if (payload.id) {
+			Token.findOne({
+					uid: payload.id
+				}).exec()
+				.then(function(token) {
+					var now = new Date().getTime();
+					var createTime = token.createDate.getTime();
+					if (token === null || new Date().getTime() - token.createDate.getTime() > livetimeout) {
+						defer.resolve(null);
+						token.remove();
+					} else {
+						User.findById(token.uid).populate("coachProfile playerProfile").exec().then(function(user) {
+							defer.resolve(user);
+						}, function error(argument) {
+							defer.reject(argument);
+						});
+					};
+				})
+				.catch(function(error) {
+					defer.reject({
+						error: "find error"
 					});
-				};
-			})
-			.catch(function(error){
-				defer.reject({error:"find error"});
+				});
+		} else {
+			defer.reject({
+				error: "param error"
 			});
-	}else {
-		defer.reject({error:"param error"});
+		};
 	};
+
+
 
 	return defer.promise;
 }

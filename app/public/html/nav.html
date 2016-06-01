@@ -8,21 +8,22 @@
 				<span class="icon-bar"></span>
 			</button>
 
-			<a href="#" class="navbar-brand">theReviews</a>
+			<a href="#" class="navbar-brand">WhatsProject</a>
 		</div>
 
 		<div uib-collapse="navCollapsed" class="collapse navbar-collapse navbar-responsive-collapse">
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#">Home<span class="sr-only">(current)</span></a></li>
-				<li><a href="#">Projects</a></li>
-				<li><a href="#">Reviews</a></li>
-				<li><a href="#">Meetings</a></li>
+				<li><a href="#">使用指南<span class="sr-only">(current)</span></a></li>
+				<li><a href="#">创新团队</a></li>
+				<li><a href="#">可重用资产</a></li>
+				<li><a href="#">会议活动</a></li>
+				<li><a href="#">教练团</a></li>
 				<li ng-hide="user == null">
-					<p id="r-nav-id-name">Hello,{{user.name}}</p>
+					<p id="r-nav-id-name">你好, {{user.name}}</p>
 				</li>
 
-				<li><button class="btn btn-primary navbar-btn r-nav-navbar-button" type="button" ng-show="token == undefined" ng-click="login()">Login</button></li>
-				<li><botton class="btn btn-primary navbar-btn r-nav-navbar-button" type="button" ng-hide="token == undefined" ng-click="logout()">Logout</button></li>
+				<li><button class="btn btn-primary navbar-btn r-nav-navbar-button" type="button" ng-show="token == null" ng-click="login()">登录</button></li>
+				<li><botton class="btn btn-primary navbar-btn r-nav-navbar-button" type="button" ng-hide="token == null" ng-click="logout()">退出登录</button></li>
 			</ul>
 		</div>
 	<!-- </div> -->
@@ -34,12 +35,12 @@
 
 <footer class="r-nav-footer">
 	<div class="container">
-		<div class="row r-nav-footer-top">
-			<p>Copyright xingyunzh.com</p>
+		<div class="row">
+			<p>©2016 武汉星云智慧科技有限公司</p>
 		</div>
 
-		<div class="row r-nav-footer-bottom">
-			<p>ICP-ABCDEFG</p>
+		<div class="row">
+			<p>鄂ICP备16008344号</p>
 		</div>
 	</div>
 

@@ -1,7 +1,12 @@
 var app = angular.module("app", ["ui.router", "720kb.datepicker", "ui.bootstrap"])
-	.run(['$rootScope', '$state', '$stateParams', 'userService', function($rootScope, $state, $stateParams, userService) {
+	.run(['$rootScope', '$state', '$stateParams', 'userService', '$window', function($rootScope, $state, $stateParams, userService, $window) {
 		$rootScope.$state = $state;
 		$rootScope.$stateParams = $stateParams;
+
+		$rootScope.back = function () {
+			 /* body... */ 
+			 $window.history.back();
+		}
 
 
 		//auto login with last user
@@ -14,14 +19,13 @@ var app = angular.module("app", ["ui.router", "720kb.datepicker", "ui.bootstrap"
 			}, function(errorText) {
 				$rootScope.user = null;
 				$rootScope.token = null;
-				localStorage.token = null;
-
+				localStorage.clear();
 				$state.go("nav.main");
 			});
 
 
 		} else {
-			$state.go("nav.main");
+			// $state.go("nav.main");
 		};
 
 	}]);

@@ -1,109 +1,116 @@
 <div class="container">
-	<p id="r-id-register-title-p" class="text-center col-sm-4 col-sm-offset-4 col-xs-8 col-xs-offset-2">Register new user</p> <br>
+	<div id="r-id-register-title-p">新用户注册</div> 
+	
+	<div class="img-responsive center-block">
+			<form id="r-id-register-form" class="img-responsive center-block">
+				<div class="form-group">
+					<label for="r-id-register-username" class="control-label">用户名*:</label>
+
+					<input type="text" id="r-id-register-username" placeholder="your username" class="form-control" ng-model="formdata.username">
+					<div ng-hide="validationResult == null">
+						<i>{{validationResult}}</i>
+					</div>
+
+					<button class="btn btn-info form-control" ng-click="validateUsername()">验证可用性</button>				
+				</div>
+
+				<div class="form-group">				
+					<label for="r-id-register-password">密码*:</label>
+					<input type="password" id="r-id-register-password" class="form-control" ng-model="formdata.password">
+				</div>
+
+				<div class="form-group">				
+					<label for="r-id-register-cpassword">确认密码*:</label>
+					<input type="password" id="r-id-register-cpassword" class="form-control" ng-model="formdata.cpassword">
+				</div>
 
 
-	<form id="r-id-register-form" class="img-responsive center-block form-horizontal">
-		<div class="form-group">
-			<label for="r-id-register-username" class="control-label">Username*:</label>
+				<div class="form-group">
+					<label for="r-id-register-name">姓名*:</label>
+					<input type="text" id="r-id-register-name" ng-model="formdata.name" class="form-control">
+				</div>
 
-			<input type="text" id="r-id-register-username" placeholder="your username" class="form-control" ng-model="formdata.username">
-			<div ng-hide="validationResult == null">
-				<i>{{validationResult}}</i>
+				<div class="form-inline">	
+					<label for="" class="control-label">性别*:</label>			
+					<div class="radio">
+						<label>
+							<input type="radio" name="sex" value="male" ng-model="formdata.sex">男
+						</label>
+					</div>
+
+					<div class="radio">
+						<label>
+							<input type="radio" name="sex" ng-model="formdata.sex" value="female">女
+						</label>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="r-id-register-birth">出生日期:</label>
+
+					<div datepicker date-format="yyyy-MM-dd">
+						<input type="text" id="r-id-register-birth" ng-model="formdata.birth" class="form-control">
+					</div>
+					
+				</div>
+
+				<div class="form-group">
+					<label for="r-id-register-colleage">院校*:</label>
+					<input type="text" id="r-id-register-colleage" ng-model="formdata.colleage" class="form-control">
+				</div>
+
+				<div class="form-group">
+					<label for="r-id-register-major">主修专业:</label>
+					<input type="text" id="r-id-register-major" ng-model="formdata.major" class="form-control">
+				</div>
+
+				<div class="form-group">
+					<label for="r-id-register-lang">工作语言:</label>
+					<input type="text" id="r-id-register-lang" ng-model="formdata.lang" class="form-control">
+				</div>
+
+				<div class="form-group">
+					<label for="r-id-register-email">电子邮件*:</label>
+					<input type="email" id="r-id-register-email" ng-model="formdata.email" class="form-control">
+				</div>
+
+				<div class="form-group">
+					<label for="r-id-register-tel">电话*:</label>
+					<input type="text" type="text" id="r-id-register-tel" ng-model="formdata.tel" class="form-control">
+				</div>
+
+				<div class="form-group">
+					<label for="r-id-register-address">地址:</label>
+					<input type="text" id="r-id-register-address" ng-model="formdata.address" class="form-control">
+				</div>
+
+				<div class="form-group">
+					<label for="r-id-register-graduatedDate">毕业时间*:</label>
+
+					<div datepicker date-format="yyyy-MM-dd">
+						<input type="text" id="r-id-register-graduatedDate" ng-model="formdata.graduatedDate" class="form-control">
+					</div>
+				</div>
+					
+				<div class="form-group">
+					<label for="r-id-register-githubAccount">Github 账号:</label>
+					<input type="text" id="r-id-register-githubAccount" ng-model="formdata.githubAccount" class="form-control">
+				</div>
+
+				<button class="btn btn-primary text-center col-sm-4 col-sm-offset-4 col-xs-8 col-xs-offset-2" id="r-id-register-submit" ng-click="register()" >提交</button>
+
+				<button class="btn btn-info text-center col-sm-4 col-sm-offset-4 col-xs-8 col-xs-offset-2" id="r-id-register-back" ng-click="back()">返回</button>
+			</form>		
+
+			<div class="r-login-footer">
+				<div class="row">
+					<p class="col-md-12">©2016 武汉星云智慧科技有限公司 | 鄂ICP备16008344号</p>
+				</div>
 			</div>
 
-			<button class="btn btn-info form-control" ng-click="validateUsername()">validate</button>				
-		</div>
-
-		<div class="form-group">				
-			<label for="r-id-register-password">Password*:</label>
-			<input type="password" id="r-id-register-password" class="form-control" ng-model="formdata.password">
-		</div>
-
-		<div class="form-group">				
-			<label for="r-id-register-cpassword">Confirm Password*:</label>
-			<input type="password" id="r-id-register-cpassword" class="form-control" ng-model="formdata.cpassword">
-		</div>
-
-
-		<div class="form-group">
-			<label for="r-id-register-name">Name*:</label>
-			<input type="text" id="r-id-register-name" ng-model="formdata.name" class="form-control">
-		</div>
-
-		<div class="form-inline">	
-			<label for="" class="control-label">Sex*:</label>			
-			<div class="radio">
-				<label>
-					<input type="radio" name="sex" value="male" ng-model="formdata.sex">Male
-				</label>
-			</div>
-
-			<div class="radio">
-				<label>
-					<input type="radio" name="sex" ng-model="formdata.sex" value="female">Female
-				</label>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label for="r-id-register-birth">Birthday:</label>
-
-			<div datepicker date-format="yyyy-MM-dd">
-				<input type="text" id="r-id-register-birth" ng-model="formdata.birth" class="form-control">
-			</div>
-			
-		</div>
-
-		<div class="form-group">
-			<label for="r-id-register-colleage">Colleage*:</label>
-			<input type="text" id="r-id-register-colleage" ng-model="formdata.colleage" class="form-control">
-		</div>
-
-		<div class="form-group">
-			<label for="r-id-register-major">Major:</label>
-			<input type="text" id="r-id-register-major" ng-model="formdata.major" class="form-control">
-		</div>
-
-		<div class="form-group">
-			<label for="r-id-register-lang">Language:</label>
-			<input type="text" id="r-id-register-lang" ng-model="formdata.lang" class="form-control">
-		</div>
-
-		<div class="form-group">
-			<label for="r-id-register-email">Email*:</label>
-			<input type="email" id="r-id-register-email" ng-model="formdata.email" class="form-control">
-		</div>
-
-		<div class="form-group">
-			<label for="r-id-register-tel">Tel*:</label>
-			<input type="text" type="text" id="r-id-register-tel" ng-model="formdata.tel" class="form-control">
-		</div>
-
-		<div class="form-group">
-			<label for="r-id-register-address">Address:</label>
-			<input type="text" id="r-id-register-address" ng-model="formdata.address" class="form-control">
-		</div>
-
-		<div class="form-group">
-			<label for="r-id-register-graduatedDate">Graduated Date*:</label>
-
-			<div datepicker date-format="yyyy-MM-dd">
-				<input type="text" id="r-id-register-graduatedDate" ng-model="formdata.graduatedDate" class="form-control">
-			</div>
-		</div>
-			
-		<div class="form-group">
-			<label for="r-id-register-githubAccount">Github Account:</label>
-			<input type="text" id="r-id-register-githubAccount" ng-model="formdata.githubAccount" class="form-control">
-		</div>
-
-		<button class="btn btn-submit text-center col-sm-4 col-sm-offset-4 col-xs-8 col-xs-offset-2" id="r-id-register-submit" ng-click="register()" >Submit</button>
-	</form>		
-
-
-	<div>
-		<p id="r-id-register-footer-p" class="text-center col-sm-4 col-sm-offset-4 col-xs-8 col-xs-offset-2">Copyright&#169; xingyunzh.com</p>
 	</div>
+
+	
 
 
 </div>

@@ -5,13 +5,13 @@ app.controller("loginController", function($rootScope, $scope, loginService, use
 		$scope.disableLoginButton = false;
 
 		if (username == undefined) {
-			toastr.error("Please input the username!");
+			toastr.error("请输入用户名");
 
 			return;
 		};
 
 		if (password) {
-			toastr.info("Login in processing...", "Info", {timeOut:0});
+			toastr.info("正在登陆，请稍后", "Info", {timeOut:0});
 
 			$scope.disableLoginButton = true;
 			loginService.login(username, password).then(function success(data){
@@ -32,13 +32,13 @@ app.controller("loginController", function($rootScope, $scope, loginService, use
 			}, function error(data){
 				toastr.remove();
 
-				toastr.error("Invalid username or password:" + data, "Error", {timeOut:10});
+				toastr.error("不正确的用户名或密码：" + data, "Error", {timeOut:10});
 				$scope.passwordInput = null;
 				$scope.disableLoginButton = false;
 			});
 
 		} else {
-			toastr.error("Please input your password");
+			toastr.error("请输入密码");
 			
 		};
 	}

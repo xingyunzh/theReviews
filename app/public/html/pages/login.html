@@ -1,33 +1,40 @@
 <div class="container">
 	
-	<p id="r-id-login-title-p" class="text-center col-sm-4 col-sm-offset-4 col-xs-8 col-xs-offset-2">theReviews</p>
+	<div id="r-id-login-title-p" class="text-center col-sm-4 col-sm-offset-4 col-xs-8 col-xs-offset-2">WhatsProject</div>
 
 
 		
 
-	<form id="r-id-login-form" class="img-responsive center-block">
-		<div class="form-group">
-			<label for="r-id-login-username">Username:</label>
-			<input type="text" id="r-id-login-username" placeholder="your username" class="form-control" ng-model="usernameInput">
-		</div>
-		<div class="form-group">				
-			<label for="r-id-login-password">Password:</label>
-			<input type="password" id="r-id-login-password" class="form-control" ng-model="passwordInput">
-		</div>
-			
-		<button class="btn btn-submit text-center col-sm-4 col-sm-offset-4 col-xs-8 col-xs-offset-2" id="r-id-login-submit" ng-click="login()" ng-disabled="disableLoginButton">Login</button>
+	<div class="img-responsive center-block">
+		
+			<form id="r-id-login-form" class="img-responsive center-block">
+				<div class="form-group">
+					<label for="r-id-login-username">用户名:</label>
+					<input type="text" id="r-id-login-username" placeholder="请输入您的用户名" class="form-control" ng-model="usernameInput">
+				</div>
+				<div class="form-group">				
+					<label for="r-id-login-password">密码:</label>
+					<input type="password" id="r-id-login-password" class="form-control" ng-model="passwordInput">
+				</div>
+					
+				<button class="btn btn-primary text-center col-sm-4 col-sm-offset-4 col-xs-8 col-xs-offset-2 r-vertical-button" id="r-id-login-submit" ng-click="login()" ng-disabled="disableLoginButton">登陆</button>
 
-		<button class="btn btn-info text-center col-sm-4 col-sm-offset-4 col-xs-8 col-xs-offset-2" id="r-id-login-register" ng-click="goRegister()">Register</button>
+				<button class="btn btn-info text-center col-sm-4 col-sm-offset-4 col-xs-8 col-xs-offset-2 r-vertical-button" id="r-id-login-register" ng-click="goRegister()">注册新用户</button>
 
-	</form>		
+				<button class="btn btn-info text-center col-sm-4 col-sm-offset-4 col-xs-8 col-xs-offset-2 r-vertical-button" id="r-id-login-back" ng-click="back()">返回</button>
+
+			</form>		
 
 
-	<div>
-		<p id="r-id-login-footer-p" class="text-center col-sm-4 col-sm-offset-4 col-xs-8 col-xs-offset-2">Copyright&#169; xingyunzh.com</p>
+			<div class="r-login-footer">
+				<div class="row">
+						<p class="col-md-12">©2016 武汉星云智慧科技有限公司 | 鄂ICP备16008344号</p>
+				</div>
+			</div>
+
 	</div>
 
 
 
-
-
 </div>
+

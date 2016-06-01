@@ -2,35 +2,35 @@ app.controller("registerController", function($rootScope, $scope, $q, userServic
 	$scope.formdata = {sex:"male", birth:new Date("1990-10-01"), graduatedDate:new Date("2001-07-01")};
 	$scope.validationResult = null;
 
-	var kUsernameValidationSuccessText = "The username is OK to use.";
-	var kUsernameValidationFailText =  "The username is already used.";
-	var kUsernameValidationEmptyText = "Please fill the username.";
+	var kUsernameValidationSuccessText = "用户名可用";
+	var kUsernameValidationFailText =  "用户名已经被占用，请您选择其他名字";
+	var kUsernameValidationEmptyText = "请填写用户名";
 
 	var usernameToValidate = null;
 
 	function contentValidate(argument) {
 		 if ($scope.formdata.username == null || $scope.formdata.username != usernameToValidate || $scope.validationResult != kUsernameValidationSuccessText) {
-		 	return "Please ensure username is unique by clicking the validate button";
+		 	return "为保证用户名唯一性，请您点击验证按钮";
 		 }; 
 
 		 if ($scope.formdata.password == null || $scope.formdata.password.length < 6 || $scope.formdata.password !== $scope.formdata.cpassword) {
-		 	return "Please set your password and confirm. Password should be no shorter than 6 letters."
+		 	return "请设置你的密码并确认，密码为数不得少于6位"
 		 };
 
 		 if ($scope.formdata.name == null) {
-		 	return "Please set your name."
+		 	return "请设置你的姓名"
 		 };
 
 		 if ($scope.formdata.colleage == null) {
-		 	return "Please set your colleage."
+		 	return "请填写你的院校"
 		 };
 
 		 if ($scope.formdata.email == null) {
-		 	return "Please set your email correctly.";
+		 	return "请填写正确的电子邮箱地址";
 		 };
 
 		 if ($scope.formdata.tel == null || $scope.formdata.tel.length < 8) {
-		 	return "Please set your tel number correctly";
+		 	return "请填写正确的电话号码";
 		 };
 
 		 return null;
@@ -39,14 +39,14 @@ app.controller("registerController", function($rootScope, $scope, $q, userServic
 	$scope.register = function() {
 		var validateMessage = contentValidate();
 		if (validateMessage) {
-			toastr.error(validateMessage, "Not Completed", {timeOut:0, closeButton:true});
+			toastr.error(validateMessage, "请完成全部必填项", {timeOut:0, closeButton:true});
 			return;
 		}
 
 		userService.addUser($scope.formdata).then(function success(data) {
 			 $rootScope.$state.go("nav.main");  
 		}, function fail(argument) {
-			  toastr.error("Register error. Please try it again later.", "System Error", {timeOut:5});
+			  toastr.error("注册错误， 请稍后再试！", "系统错误", {timeOut:5});
 		})
 	}
 
@@ -70,5 +70,4 @@ app.controller("registerController", function($rootScope, $scope, $q, userServic
 			 	$scope.validationResult = null;
 		})
 	}
-
 });
