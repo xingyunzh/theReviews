@@ -6,6 +6,8 @@ app.controller('navController', ['$scope', '$rootScope', function ($scope, $root
 		if (typeof(Storage) !== "undefined") {
 			localStorage.clear();
 		};
+
+		$rootScope.$state.go("nav.main");
 	};
 
 	$scope.login = function (argument) {

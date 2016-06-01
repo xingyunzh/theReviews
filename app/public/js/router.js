@@ -15,6 +15,11 @@ app.config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $ur
 		url:"/aboutus",
 		templateUrl : "html/pages/aboutus.html"
 	})
+	.state("nav.workpanel", {
+		url:"/workpanel",
+		templateUrl:"html/pages/workpanel.html",
+		controller : "workpanelController"
+	})
 	.state("login", {
 		url : "/login",
 		templateUrl : "html/pages/login.html",
