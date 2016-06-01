@@ -105,7 +105,7 @@ app.service('userService', ["$http", "$q", function ($http, $q) {
 		 var deferred = $q.defer();
 		 $http(req).then(function success (response) {
 		 	 if (response.data.status === 'S') {
-		 	 	deferrd.resolve(response.data.body);
+		 	 	deferred.resolve(response.data.body);
 		 	 }else {
 		 	 	deferred.reject(response.data.status);
 		 	 };

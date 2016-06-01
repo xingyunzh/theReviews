@@ -43,10 +43,13 @@ app.controller("registerController", function($rootScope, $scope, $q, userServic
 			return;
 		}
 
+		toastr.info("正在提交， 请稍候", "Info", {timeOut:0});
 		userService.addUser($scope.formdata).then(function success(data) {
+			toastr.remove();
 			 $rootScope.$state.go("nav.main");  
 		}, function fail(argument) {
-			  toastr.error("注册错误， 请稍后再试！", "系统错误", {timeOut:5});
+			toastr.remove();
+			toastr.error("注册错误， 请稍后再试！", "系统错误", {timeOut:0, closeButton:true});
 		})
 	}
 

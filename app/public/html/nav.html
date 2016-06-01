@@ -19,7 +19,7 @@
 				<li><a href="#">会议活动</a></li>
 				<li><a href="#">教练团</a></li>
 				<li ng-hide="user == null">
-					<p id="r-nav-id-name">你好, {{user.name}}</p>
+					<a id="r-nav-id-name" ui-sref="updateprofile">你好, {{user.name}}</a>
 				</li>
 
 				<li><button class="btn btn-primary navbar-btn r-nav-navbar-button" type="button" ng-show="token == null" ng-click="login()">登录</button></li>

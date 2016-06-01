@@ -1,5 +1,6 @@
 app.controller("updateController", function($rootScope, $scope, $q, userService) {
 	$scope.formdata = $rootScope.user;
+	$scope.formdata.password = "";
 
 	function contentValidate(argument) {
 
@@ -33,10 +34,13 @@ app.controller("updateController", function($rootScope, $scope, $q, userService)
 			return;
 		}
 
+		toastr.info("正在提交，请稍后", "Info",{timeOut:0});
 		userService.updateProfile($scope.formdata, $rootScope.token).then(function success(data) {
-			 $rootScope.$state.go("main");  
+			 toastr.remove();
+			 $rootScope.$state.go("nav.main"); 
+			  
 		}, function fail(argument) {
-			  toastr.error("注册错误， 请稍后再试！", "系统错误", {timeOut:5});
+			  toastr.error("更新错误， 请稍后再试！" + argument, "系统错误", {timeOut:5});
 		});
 	}
 

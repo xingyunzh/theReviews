@@ -25,7 +25,7 @@ app.config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $ur
 		templateUrl : "html/pages/register.html",
 		controller:"registerController"
 	})
-	.state("nav.updateprofile",{
+	.state("updateprofile",{
 		url:"/updateprofile",
 		templateUrl:"html/pages/update-profile.html",
 		controller:"updateController"

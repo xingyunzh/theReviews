@@ -161,6 +161,7 @@ exports.updateProfile = function (req, res) {
 	var updateContent = req.body.updateContent;
 	var needsSave = false;
 
+	var user = req.user;
 	for (var key in updateContent) {
 		if (key == "coachProfile") {
 			for (var k in updateContent.coachProfile){
@@ -180,6 +181,9 @@ exports.updateProfile = function (req, res) {
 				 res.json(util.wrapBody(error, "E:save error"));
 			});
 		}
+		else if (key == "_id"){
+			continue;
+		}
 		else {
 			user[key] = updateContent[key];
 			needsSave = true;
@@ -188,9 +192,15 @@ exports.updateProfile = function (req, res) {
 
 	if (needsSave) {
 		user.save(function (error) {
-			 res.json(util.wrapBody(error, "E:save error"));
-		})
-	};
+			if (error) {
+				res.json(util.wrapBody(error, "E:save error"));
+			}else {
+				res.json(util.wrapBody({userId:user._id}));
+			};
+		});
 
-	res.json(util.wrapBody({userId:user._id}));
+		return;
+	} else {
+		res.json(util.wrapBody({userId:user._id}));
+	};
 }
