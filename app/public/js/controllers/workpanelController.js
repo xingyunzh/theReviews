@@ -3,11 +3,17 @@ var sampleJSON = [{"_id":"573c8fa88eb11284c8088739","coachProfile":"573c8fa88eb1
 
 app.controller("workpanelController", function($rootScope, $scope, $q) {
 	$scope.teamUsers = sampleJSON;
+	$scope.isInviteCollapsed = true;
+	$scope.panel = {usernameToInvite : ""};
 
 	$scope.deattach = function (user) {
 		 _.remove($scope.teamUsers, function (u) {
 		 	 return u._id === user._id;
 		 });
+	}
+
+	$scope.invite = function () {
+		 console.log("invite:" + $scope.panel.usernameToInvite);
 	}
 
 });

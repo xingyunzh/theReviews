@@ -9,6 +9,8 @@
 	</div>
 	
 	<div class="container">
+
+
 		<uib-accordion close-others="true">
 
 			<uib-accordion-group heading="评审进行中">
@@ -27,6 +29,33 @@
 			</uib-accordion-group>
 
 			<uib-accordion-group is-open="true" heading="我的团队">
+
+				<div class="r-wp-inviteboard">
+					<button class="btn btn-default r-wp-small-margin-bottom" type="button" ng-click="isInviteCollapsed = !isInviteCollapsed">邀请面板</button>
+					<div uib-collapse="isInviteCollapsed">
+						<div class="row">
+							<div class="col-md-6">
+							 	<p class="input-group">
+									<input type="text" ng-model="panel.usernameToInvite" class="form-control" placeholder="用户名"> 
+									<span class="input-group-btn">
+										<button class="btn btn-default" type="button" ng-click="invite()">
+											添加<!-- <i class="glyphicon glyphicon-plus"></i> -->
+										</button>
+									</span>
+								</p>	
+							</div>
+						</div>
+
+
+						
+
+		
+
+
+
+					</div>
+				</div>
+
 				<table class="table table-bordered table-hover">
 					<tr>
 						<th>编号</th>
