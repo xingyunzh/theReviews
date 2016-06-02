@@ -25,7 +25,7 @@ var app = angular.module("app", ["ui.router", "720kb.datepicker", "ui.bootstrap"
 
 
 		} else {
-			// $state.go("nav.main");
+			 $state.go("nav.main");
 		};
 
 	}]);

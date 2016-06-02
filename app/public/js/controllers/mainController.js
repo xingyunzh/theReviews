@@ -30,8 +30,11 @@ app.controller('mainController', ['$scope', '$rootScope', function ($scope, $roo
 		imageUrl:"/images/boycoding2.jpg"
 	}];
 	
-	$scope.logout = function(){
-		$rootScope.token = null;
-		$rootScope.user = null;
+	$scope.handleMasterHeadButtonClick = function () {
+		 if ($rootScope.user) {
+		 	$rootScope.$state.go("nav.workpanel");
+		 }else {
+		 	//TBD
+		 };
 	}
 }]);

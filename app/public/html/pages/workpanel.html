@@ -27,7 +27,32 @@
 			</uib-accordion-group>
 
 			<uib-accordion-group is-open="true" heading="我的团队">
-				团队工作区<br><br><br>
+				<table class="table table-bordered table-hover">
+					<tr>
+						<th>编号</th>
+						<th>姓名</th>
+						<th>电子邮件</th>
+						<th>角色</th>
+						<th>操作</th>
+					</tr>
+					<tr ng-repeat="user in teamUsers">
+						<td>{{teamUser.indexOf(user)}}</td>	
+						<td>{{user.name}}</td>
+						<td>{{user.email}}</td>
+						<td>Developer</td>
+						<td><a href="" ng-click="deattach(user)">删除</a></td>
+					</tr>
+
+				</table>
+
+
+
+
+
+
+
+
+
 			</uib-accordion-group>
 
 			<uib-accordion-group heading="我的资产">
