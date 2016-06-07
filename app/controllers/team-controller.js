@@ -4,6 +4,31 @@ var util = require("../util/shared/util");
 var Team = require("../model/team");
 var ObjectId = require("mongoose").mongo.ObjectId;
 
+// [{user:"dkkiigh398", role:"Developer"}] to [{user:ObjectId(dkkiigh398), role:"Developer"}]
+function fitMembersToSchema(members) {
+	return _.map(members, function(m) {
+		if (m.user instanceof String) {
+			return {
+				user: ObjectId(m.user),
+				role: m.role
+			};
+
+		} else {
+			return m;
+		};
+	});
+}
+
+function fitCoachesToSchema (coaches) {
+	 return _.map(coaches, function (c) {
+	 	 if (c instanceof String) {
+	 	 	return ObjectId(c);
+	 	 }else {
+	 	 	return c;
+	 	 };
+	 });
+}
+
 exports.create = function (req, res) { 
 	 var team = new Team({
 	 	name : req.body.name,
@@ -11,12 +36,8 @@ exports.create = function (req, res) {
 	 	setupDate : new Date(),
 	 	leader : req.user,
 	 	
-	 	members : _.map(req.body.members, function (memberId) {
-	 		 return ObjectId(memberId);
-	 	}),
-	 	coaches : _.map(req.body.coaches, function (coachId) {
-	 		 return ObjectId(coachId);
-	 	})
+	 	members : fitMembersToSchema(req.body.members),
+	 	coaches : fitCoachesToSchema(req.body.coaches)
 	 });
 
 	 team.save(function (error) {
@@ -67,6 +88,8 @@ exports.getByName = function (req, res) {
 exports.updateById = function (req, res) {
 	 /* body... */ 
 	 var updateContent = req.body.updateContent;
+	 updateContent.members = fitMembersToSchema(updateContent.members);
+	 updateContent.coaches = fitCoachesToSchema(updateContent.coaches);
 
 	 Team.findByIdAndUpdate(req.params.id, updateContent,{"new" : true}).exec().then(function success(argument) {
 	 	 res.json(util.wrapBody(argument));

@@ -8,31 +8,27 @@ app.config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $ur
 	})
 	.state("nav.main", {
 		url:"/main",
-		templateUrl:"html/pages/main.html",
+		templateUrl:"html/main.html",
 		controller:"mainController"
-	})
-	.state("nav.aboutus",{
-		url:"/aboutus",
-		templateUrl : "html/pages/aboutus.html"
 	})
 	.state("nav.workpanel", {
 		url:"/workpanel",
-		templateUrl:"html/pages/workpanel.html",
+		templateUrl:"/modules/workpanel/workpanel.html",
 		controller : "workpanelController"
 	})
 	.state("login", {
 		url : "/login",
-		templateUrl : "html/pages/login.html",
+		templateUrl : "/modules/user/login.html",
 		controller: "loginController"
 	})
 	.state("register", {
 		url : "/register",
-		templateUrl : "html/pages/register.html",
+		templateUrl : "/modules/user/register.html",
 		controller:"registerController"
 	})
 	.state("updateprofile",{
 		url:"/updateprofile",
-		templateUrl:"html/pages/update-profile.html",
+		templateUrl:"/modules/user/update-profile.html",
 		controller:"updateController"
 	});
 
