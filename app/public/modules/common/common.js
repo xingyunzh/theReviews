@@ -43,3 +43,16 @@ app.service('httpHelper', function ($http, $q, $rootScope) {
 	};
 
 });
+
+app.service('util', function () {
+	this.indexOfObject = function (array, object, equlFunc) {
+		 var i = 0;
+		 for (i = array.length - 1; i >= 0; i--) {
+		 	if (equlFunc(array[i], object)) {
+		 		return i;
+		 	};
+		 };
+
+		 return -1;
+	}
+});

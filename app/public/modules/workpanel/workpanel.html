@@ -29,16 +29,16 @@
 
 			<uib-accordion-group is-open="true" heading="我的团队">
 				<div class="r-wp-board">
-					<button class="btn btn-default r-wp-small-margin-bottom" type="button" ng-click="newTeam.isCreateTeamCollapsed = !newTeam.isCreateTeamCollapsed">创建新团队</button>
-					<div uib-collapse="newTeam.isCreateTeamCollapsed">
+					<button class="btn btn-default r-wp-small-margin-bottom" type="button" ng-click="panel.isCreateTeamCollapsed = !panel.isCreateTeamCollapsed">创建新团队</button>
+					<div uib-collapse="panel.isCreateTeamCollapsed">
 						<div class="form-group">
 							<label for="r-id-wp-create-team-name">团队名称:</label>
-							<input type="text" id="r-id-wp-create-team-name" class="form-control" ng-model='newTeam.teamNameToCreate'>
+							<input type="text" id="r-id-wp-create-team-name" class="form-control" ng-model='panel.teamNameToCreate'>
 						</div>
 
 						<div class="form-group">
 							<label for="r-id-wp-create-team-description">团队描述:</label>
-							<textarea name="" id="r-id-wp-create-team-description" cols="30" rows="10" class="form-control" ng-model="newTeam.teamDescriptionToCreate"></textarea>
+							<textarea name="" id="r-id-wp-create-team-description" cols="30" rows="10" class="form-control" ng-model="panel.teamDescriptionToCreate"></textarea>
 						</div>	
 
 						<button class="btn btn-primary form-control" ng-click="createTeam()">提交</button>					
@@ -46,22 +46,35 @@
 				</div>
 				
 				
-				<uib-tabset active="activeTeamTabIndex">
-					<uib-tab index="$index" ng-repeat="team in teams" heading="{{team.name}}">
+				<uib-tabset active="panel.activeTeamTabIndex">
+					<uib-tab index="$index" ng-repeat="team in panel.teams" heading="{{team.name}}">
 						<div class="r-wp-board">
-							<button class="btn btn-default r-wp-small-margin-bottom" type="button" ng-click="newTeam.isInviteCollapsed = !newTeam.isInviteCollapsed">邀请面板</button>
-							<div uib-collapse="newTeam.isInviteCollapsed">
+							<button class="btn btn-default r-wp-small-margin-bottom" type="button" ng-click="panel.isInviteCollapsed = !panel.isInviteCollapsed">邀请面板</button>
+							<div uib-collapse="panel.isInviteCollapsed">
 								<div class="row">
 									<div class="col-md-6">
-									 	<p class="input-group">
+									 	<div class="input-group">
 											<input type="text" ng-model="panel.usernameToInvite" class="form-control" placeholder="用户名"> 
-											<span class="input-group-btn">
-												<button class="btn btn-default" type="button" ng-click="invite()">
+											
+											<span class="input-group-btn" uib-dropdown>
+												<a class="btn btn-default" type="button" uib-dropdown-toggle ng-init="panel.inviteRoleCN='队员'">{{panel.inviteRoleCN}}<span class="caret"></span>
+												</a>
+
+												<ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="invite-roles">
+													<li role="menuitem"><a href="#" ng-click="panel.inviteRoleCN='队员'">队员</a></li>
+													<li role="menuitem"><a href="#" ng-click="panel.inviteRoleCN='教练'">教练</a></li>	
+												</ul>
+											</span>
+											
+										</div>	
+									</div>
+									
+									<div class="col-md-6">
+										<button class="btn btn-primary" type="button" ng-click="invite()">
 													添加<!-- <i class="glyphicon glyphicon-plus"></i> -->
 												</button>
-											</span>
-										</p>	
 									</div>
+
 								</div>
 							</div>
 						</div>
@@ -74,11 +87,19 @@
 								<th>角色</th>
 								<th>操作</th>
 							</tr>
-							<tr ng-repeat="user in teamUsers">
-								<td>{{teamUser.indexOf(user)}}</td>	
+							<tr ng-repeat="member in team.members">
+								<td>M{{team.members.indexOf(member)}}</td>	
+								<td>{{member.user.name}}</td>
+								<td>{{member.user.email}}</td>
+								<td>队员</td>
+								<td><a href="" ng-click="deattach(user)">删除</a></td>
+							</tr>
+
+							<tr ng-repeat="user in team.coaches">
+								<td>C{{team.coaches.indexOf(user)}}</td>	
 								<td>{{user.name}}</td>
 								<td>{{user.email}}</td>
-								<td>Developer</td>
+								<td>教练</td>
 								<td><a href="" ng-click="deattach(user)">删除</a></td>
 							</tr>
 

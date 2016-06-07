@@ -53,7 +53,7 @@ exports.create = function (req, res) {
 
 exports.getAll = function (req, res) {
 	 /* body... */ 
-	 Team.find().exec().then(function success(data) {
+	 Team.find().populate("members.user coaches").exec().then(function success(data) {
 	 	 // body...  
 	 	 res.json(util.wrapBody(data));
 	 }, function fail(data) {
@@ -88,8 +88,13 @@ exports.getByName = function (req, res) {
 exports.updateById = function (req, res) {
 	 /* body... */ 
 	 var updateContent = req.body.updateContent;
-	 updateContent.members = fitMembersToSchema(updateContent.members);
-	 updateContent.coaches = fitCoachesToSchema(updateContent.coaches);
+	 if (updateContent.members) {
+	 	updateContent.members = fitMembersToSchema(updateContent.members);
+	 };
+	 
+	 if (updateContent.coaches) {
+	 	updateContent.coaches = fitCoachesToSchema(updateContent.coaches);
+	 };
 
 	 Team.findByIdAndUpdate(req.params.id, updateContent,{"new" : true}).exec().then(function success(argument) {
 	 	 res.json(util.wrapBody(argument));
