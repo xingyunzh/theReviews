@@ -10,7 +10,6 @@
 	
 	<div class="container">
 
-
 		<uib-accordion close-others="true">
 
 			<uib-accordion-group heading="评审进行中">
@@ -29,58 +28,64 @@
 			</uib-accordion-group>
 
 			<uib-accordion-group is-open="true" heading="我的团队">
+				<div class="r-wp-board">
+					<button class="btn btn-default r-wp-small-margin-bottom" type="button" ng-click="newTeam.isCreateTeamCollapsed = !newTeam.isCreateTeamCollapsed">创建新团队</button>
+					<div uib-collapse="newTeam.isCreateTeamCollapsed">
+						<div class="form-group">
+							<label for="r-id-wp-create-team-name">团队名称:</label>
+							<input type="text" id="r-id-wp-create-team-name" class="form-control" ng-model='newTeam.teamNameToCreate'>
+						</div>
 
-				<div class="r-wp-inviteboard">
-					<button class="btn btn-default r-wp-small-margin-bottom" type="button" ng-click="isInviteCollapsed = !isInviteCollapsed">邀请面板</button>
-					<div uib-collapse="isInviteCollapsed">
-						<div class="row">
-							<div class="col-md-6">
-							 	<p class="input-group">
-									<input type="text" ng-model="panel.usernameToInvite" class="form-control" placeholder="用户名"> 
-									<span class="input-group-btn">
-										<button class="btn btn-default" type="button" ng-click="invite()">
-											添加<!-- <i class="glyphicon glyphicon-plus"></i> -->
-										</button>
-									</span>
-								</p>	
+						<div class="form-group">
+							<label for="r-id-wp-create-team-description">团队描述:</label>
+							<textarea name="" id="r-id-wp-create-team-description" cols="30" rows="10" class="form-control" ng-model="newTeam.teamDescriptionToCreate"></textarea>
+						</div>	
+
+						<button class="btn btn-primary form-control" ng-click="createTeam()">提交</button>					
+					</div>
+				</div>
+				
+				
+				<uib-tabset active="activeTeamTabIndex">
+					<uib-tab index="$index" ng-repeat="team in teams" heading="{{team.name}}">
+						<div class="r-wp-board">
+							<button class="btn btn-default r-wp-small-margin-bottom" type="button" ng-click="newTeam.isInviteCollapsed = !newTeam.isInviteCollapsed">邀请面板</button>
+							<div uib-collapse="newTeam.isInviteCollapsed">
+								<div class="row">
+									<div class="col-md-6">
+									 	<p class="input-group">
+											<input type="text" ng-model="panel.usernameToInvite" class="form-control" placeholder="用户名"> 
+											<span class="input-group-btn">
+												<button class="btn btn-default" type="button" ng-click="invite()">
+													添加<!-- <i class="glyphicon glyphicon-plus"></i> -->
+												</button>
+											</span>
+										</p>	
+									</div>
+								</div>
 							</div>
 						</div>
 
+						<table class="table table-bordered table-hover">
+							<tr>
+								<th>编号</th>
+								<th>姓名</th>
+								<th>电子邮件</th>
+								<th>角色</th>
+								<th>操作</th>
+							</tr>
+							<tr ng-repeat="user in teamUsers">
+								<td>{{teamUser.indexOf(user)}}</td>	
+								<td>{{user.name}}</td>
+								<td>{{user.email}}</td>
+								<td>Developer</td>
+								<td><a href="" ng-click="deattach(user)">删除</a></td>
+							</tr>
 
-						
+						</table>						
 
-		
-
-
-
-					</div>
-				</div>
-
-				<table class="table table-bordered table-hover">
-					<tr>
-						<th>编号</th>
-						<th>姓名</th>
-						<th>电子邮件</th>
-						<th>角色</th>
-						<th>操作</th>
-					</tr>
-					<tr ng-repeat="user in teamUsers">
-						<td>{{teamUser.indexOf(user)}}</td>	
-						<td>{{user.name}}</td>
-						<td>{{user.email}}</td>
-						<td>Developer</td>
-						<td><a href="" ng-click="deattach(user)">删除</a></td>
-					</tr>
-
-				</table>
-
-
-
-
-
-
-
-
+					</uib-tab>
+				</uib-tabset>
 
 			</uib-accordion-group>
 

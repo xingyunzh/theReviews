@@ -2,7 +2,11 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var TeamSchema = new Schema({
-	members : [{type:Schema.Types.ObjectId, ref:"User"}],
+	members : [{
+		user: {type:Schema.Types.ObjectId, ref:"User"},
+		role: String
+	}],
+	
 	coaches : [{type:Schema.Types.ObjectId, ref:"User"}],
 
 	leader: {type:Schema.Types.ObjectId, ref:"User"},
