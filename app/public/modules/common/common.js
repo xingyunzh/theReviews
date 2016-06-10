@@ -44,7 +44,7 @@ app.service('httpHelper', function ($http, $q, $rootScope) {
 
 });
 
-app.service('util', function () {
+app.service('util', function ($q, $uibModal) {
 	this.indexOfObject = function (array, object, equlFunc) {
 		 var i = 0;
 		 for (i = array.length - 1; i >= 0; i--) {
@@ -54,5 +54,32 @@ app.service('util', function () {
 		 };
 
 		 return -1;
-	}
+	};
+
+	this.confirmationStep = function(aTitle, aConent) {
+		var deferred = $q.defer();
+
+		var modalInstance = $uibModal.open({
+			animation: true,
+			templateUrl: kConfirmationHTML,
+			controller: kConfirmationController,
+			size: "sm",
+			resolve: {
+				title: function() {
+					return aTitle;
+				},
+				content: function() {
+					return aConent;
+				}
+			}
+		});
+
+		modalInstance.result.then(function ok() {
+			deferred.resolve("ok");
+		}, function cancel(argument) {
+			deferred.reject("cancel");
+		});
+
+		return deferred.promise;
+	};
 });

@@ -23,9 +23,9 @@ app.controller("loginController", function($rootScope, $scope, loginService, use
 				};
 
 				userService.getUserById(data.uid).then(function(user){
-					$rootScope.user = user;
+					$rootScope.currentUser = user;
 				}, function(errorText){
-					$rootScope.user = null;
+					$rootScope.currentUser = null;
 				});
 
 				$rootScope.$state.go("nav.main");

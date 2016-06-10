@@ -1,7 +1,7 @@
 app.controller('navController', ['$scope', '$rootScope', function ($scope, $rootScope) {
 	$scope.logout = function(){
 		$rootScope.token = null;
-		$rootScope.user = null;
+		$rootScope.currentUser = null;
 
 		if (typeof(Storage) !== "undefined") {
 			localStorage.clear();

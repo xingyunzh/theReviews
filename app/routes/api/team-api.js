@@ -18,4 +18,6 @@ router.post('/create', auth.authenticator, con.create);
 
 router.post('/updatebyid/:id', con.updateById);
 
+router.get('/getbyuser/:id', con.getByUser);
+
 module.exports = router;

@@ -31,7 +31,7 @@ app.controller('mainController', ['$scope', '$rootScope', function ($scope, $roo
 	}];
 	
 	$scope.handleMasterHeadButtonClick = function () {
-		 if ($rootScope.user) {
+		 if ($rootScope.currentUser) {
 		 	$rootScope.$state.go("nav.workpanel");
 		 }else {
 		 	//TBD

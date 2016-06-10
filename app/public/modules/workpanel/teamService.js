@@ -7,6 +7,10 @@ app.service('teamService', function (httpHelper) {
 		 return httpHelper.sendRequest("GET", "/api/team/getall");
 	}
 
+	this.getByUser = function (userId) {
+		 return httpHelper.sendRequest("GET", "/api/team/getbyuser/"+userId);
+	}
+
 	this.updateTeamById = function (teamId, content) {
 		 var data = {
 		 	updateContent:content

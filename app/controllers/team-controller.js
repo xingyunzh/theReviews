@@ -53,7 +53,7 @@ exports.create = function (req, res) {
 
 exports.getAll = function (req, res) {
 	 /* body... */ 
-	 Team.find().populate("members.user coaches").exec().then(function success(data) {
+	 Team.find().populate("leader members.user coaches").exec().then(function success(data) {
 	 	 // body...  
 	 	 res.json(util.wrapBody(data));
 	 }, function fail(data) {
@@ -62,6 +62,41 @@ exports.getAll = function (req, res) {
 	 	 res.json(util.wrapBody(data, "E"));
 	 });
 } 
+
+exports.getByUser = function (req, res) {
+	 /* body... */ 
+	 var userId = req.params.id;
+
+	 Team.find().populate("leader members.user coaches").exec().then(function success(data) {
+	 	 // TODO: to be optimized  
+	 	 var allTeam = data;
+		var teams = _.remove(allTeam, function(team) {
+			if (team.leader._id == userId) {
+				return true;
+			}
+			for (var i = 0; i < team.coaches.length; i++) {
+				if (team.coaches[i]._id == userId) {
+					return true;
+				};
+			};
+
+			for (var i = 0; i < team.members.length; i++) {
+				if (team.members[i].user._id == userId) {
+					return true;
+				}
+			};
+			return false;
+		});
+
+
+	 	 res.json(util.wrapBody(teams));
+	 }, function fail(data) {
+	 	 // body...  
+
+	 	 res.json(util.wrapBody(data, "E"));
+	 });
+} 
+
 
 exports.getById = function(req, res) {
 	 // body...  

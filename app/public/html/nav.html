@@ -18,8 +18,8 @@
 				<li><a href="#">可重用资产</a></li>
 				<li><a href="#">教练团</a></li>
 				<li><a href="#">帮助指南</a></li>
-				<li ng-hide="user == null">
-					<a id="r-nav-id-name" ui-sref="updateprofile">你好, {{user.name}}</a>
+				<li ng-hide="currentUser == null">
+					<a id="r-nav-id-name" ui-sref="updateprofile">你好, {{currentUser.name}}</a>
 				</li>
 
 				<li><button class="btn btn-primary navbar-btn r-nav-navbar-button" type="button" ng-show="token == null" ng-click="login()">登录</button></li>

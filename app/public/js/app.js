@@ -14,10 +14,10 @@ var app = angular.module("app", ["ui.router", "720kb.datepicker", "ui.bootstrap"
 			$rootScope.token = localStorage.token;
 
 			userService.getCurrentUser($rootScope.token).then(function(user) {
-				$rootScope.user = user;
+				$rootScope.currentUser = user;
 				$state.go("nav.main");
 			}, function(errorText) {
-				$rootScope.user = null;
+				$rootScope.currentUser = null;
 				$rootScope.token = null;
 				localStorage.clear();
 				$state.go("nav.main");

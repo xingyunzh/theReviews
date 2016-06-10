@@ -12,19 +12,44 @@
 
 		<uib-accordion close-others="true">
 
-			<uib-accordion-group heading="评审进行中">
-				评审工作区
-				<br><br><br><br><br><br><br><br><br><br><br><br>
-			</uib-accordion-group>
-
-			<uib-accordion-group heading="变更进行中">
+			<uib-accordion-group heading="变更/评审进行中">
 				变更工作区
 				<br><br><br><br><br>
 			</uib-accordion-group>			
 
 			<uib-accordion-group heading="我的项目">
-				项目工作区
-				<br><br><br><br><br><br><br><br><br><br><br><br>
+				<div class="r-wp-board" ng-show = "panel.teams.length > 0">
+					<button class="btn btn-default r-wp-small-margin-bottom" type="button" ng-click="panel.isCreateProjectCollapsed = !panel.isCreateProjectCollapsed">创建新项目</button>
+					<div uib-collapse="panel.isCreateProjectCollapsed">
+						<div class="form-group">
+							<label for="r-id-wp-create-project-name">项目名称:</label>
+							<input type="text" id="r-id-wp-create-project-name" class="form-control" ng-model='panel.projectNameToCreate'>
+						</div>
+
+						<div class="form-group">
+							<label for="r-id-wp-create-project-description">项目描述:</label>
+							<textarea name="" id="r-id-wp-create-project-description" cols="30" rows="10" class="form-control" ng-model="panel.projectDescriptionToCreate"></textarea>
+						</div>	
+
+						<div class="form-group">
+							<label for="r-id-wp-create-project-team">负责团队：</label>
+							<span class="input-group-btn" uib-dropdown id="r-id-wp-create-project-team">
+									<a class="btn btn-default" type="button" uib-dropdown-toggle>{{panel.projectTeam.name}}<span class="caret"></span>
+									</a>
+
+									<ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="createProjectteam">
+										<li role="menuitem" ng-repeat="team in panel.teams"><a href="#" ng-click="panel.projectTeam = team">{{team.name}}</a></li>	
+									</ul>
+							</span>
+						</div>
+
+						<button class="btn btn-primary form-control" ng-click="createProject()" ng-disabled="panel.teams.length == 0">提交</button>					
+					</div>
+				</div>
+
+				<div ng-hide = "panel.teams.length > 0">
+							<p>您还没有参与团队</p>
+				</div>
 			</uib-accordion-group>
 
 			<uib-accordion-group is-open="true" heading="我的团队">
@@ -48,7 +73,7 @@
 				
 				<uib-tabset active="panel.activeTeamTabIndex">
 					<uib-tab index="$index" ng-repeat="team in panel.teams" heading="{{team.name}}">
-						<div class="r-wp-board">
+						<div class="r-wp-board" ng-show="currentUser._id == team.leader._id">
 							<button class="btn btn-default r-wp-small-margin-bottom" type="button" ng-click="panel.isInviteCollapsed = !panel.isInviteCollapsed">邀请面板</button>
 							<div uib-collapse="panel.isInviteCollapsed">
 								<div class="row">
@@ -79,7 +104,7 @@
 							</div>
 						</div>
 
-						<table class="table table-bordered table-hover">
+						<table class="table table-bordered">
 							<tr>
 								<th>编号</th>
 								<th>姓名</th>
@@ -91,8 +116,10 @@
 								<td>M{{team.members.indexOf(member)}}</td>	
 								<td>{{member.user.name}}</td>
 								<td>{{member.user.email}}</td>
-								<td>队员</td>
-								<td><a href="" ng-click="deattach(user)">删除</a></td>
+								<td>队员{{member.user._id == team.leader._id ? ", 队长" : ""}}</td>
+								<td><a href="" ng-click="deleteMember(member)" ng-show="currentUser._id == team.leader._id">删除</a>
+									<a href="" ng-click="leaveThisTeam(team)" ng-show="currentUser._id == member.user._id && currentUser._id != team.leader._id">退出</a> 
+								</td>
 							</tr>
 
 							<tr ng-repeat="user in team.coaches">
@@ -100,7 +127,9 @@
 								<td>{{user.name}}</td>
 								<td>{{user.email}}</td>
 								<td>教练</td>
-								<td><a href="" ng-click="deattach(user)">删除</a></td>
+								<td><a href="" ng-click="deleteCoach(user)" ng-show="currentUser._id == team.leader._id">删除</a>
+									<a href="" ng-click="leaveThisTeam(team)" ng-show="currentUser._id == user._id">退出</a> 
+								</td>
 							</tr>
 
 						</table>						
