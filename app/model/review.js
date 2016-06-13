@@ -6,10 +6,10 @@ var util = require("../util/shared/util");
 var ReviewSchema = new Schema({
 	name : String,
 	owner : {type:Schema.Types.ObjectId, ref:"User"},
-	reviewers : [{type:Schema.Types.ObjectId, ref"User"}],
-	approvers : [{type:Schema.Types.ObjectId, ref"User"}],
-	mediator : {type:Schema.Types.ObjectId, ref"User"},
-	observers : [{type:Schema.Types.ObjectId, ref"User"}],
+	reviewers : [{type:Schema.Types.ObjectId, ref:"User"}],
+	approvers : [{type:Schema.Types.ObjectId, ref:"User"}],
+	mediator : {type:Schema.Types.ObjectId, ref:"User"},
+	observers : [{type:Schema.Types.ObjectId, ref:"User"}],
 
 	gitURL : String,
 	docURL : String,
@@ -33,7 +33,7 @@ var State = {
 	Initial : 0,
 	Ongoing : 1,
 	Approved : 2,
-	ApprovedWithComments : 3
+	ApprovedWithComments : 3,
 	Rejected : 4,
 	Cancelled : 5,
 };
@@ -57,8 +57,8 @@ ReviewSchema.statics.ContentType = ContentType;
 
 //Facilitator Methods
 
-State.isDefinedState = util.isDefinedEnumMethod;
-State.stringFromState = util.stringFromEnumMethod;
+ReviewSchema.statics.isDefinedState = util.isDefinedEnumMethod;
+ReviewSchema.statics.stringFromState = util.stringFromEnumMethod;
 
-ContentType.isDefinedType = util.isDefinedEnumMethod;
-ContentType.stringFromType = util.stringFromEnumMethod; 
+ReviewSchema.statics.isDefinedType = util.isDefinedEnumMethod;
+ReviewSchema.statics.stringFromType = util.stringFromEnumMethod; 

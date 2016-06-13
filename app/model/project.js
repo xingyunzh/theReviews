@@ -25,7 +25,7 @@ var ProjectSchema = new Schema({
 
 module.exports = mongoose.model('Project', ProjectSchema);
 
-//Internal Types
+// Internal Types
 var Phase = {
 	Initial:0,
 	RequirementAnalysis:1,
@@ -44,8 +44,8 @@ ProjectSchema.statics.Phase = Phase;
 ProjectSchema.statics.State = State;
 
 //methods
-Phase.isDefinedPhase = util.isDefinedEnumMethod;
-Phase.stringFromPhase = util.stringFromEnumMethod;
+ProjectSchema.statics.isDefinedPhase = util.isDefinedEnumMethod;
+ProjectSchema.statics.stringFromPhase = util.stringFromEnumMethod;
 
-State.isDefinedState = util.isDefinedEnumMethod;
-State.stringFromState = util.stringFromEnumMethod;
+ProjectSchema.statics.isDefinedState = util.isDefinedEnumMethod;
+ProjectSchema.statics.stringFromState = util.stringFromEnumMethod;

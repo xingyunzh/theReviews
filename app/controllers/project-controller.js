@@ -11,8 +11,8 @@ exports.create = function (req, res) {
 	 	createDate : new Date(),
 	 	endDate : req.body.endDate,
 
-	 	phase : Project.Phase.Initial,
-	 	state : Project.State.Active,
+	 	phase : Project.schema.statics.Phase.Initial,
+	 	state : Project.schema.statics.State.Active,
 
 	 	owner : req.user,
 	 	team : ObjectId(req.body.team),
@@ -79,6 +79,21 @@ exports.getByName = function (req, res) {
 	 });
 }
 
+exports.getByTeams = function (req, res) {
+	 var teamIds = _.map(req.body.teams, function (teamId) {
+	 	 return ObjectId(teamId);
+	 }); 
+
+	 Project.find({team:{$in : teamIds}}).populate("owner team productOwner stakeholders reviews changeRequests iterations").exec().then(function success(argument) {
+	 	 /* body... */ 
+	 	 res.json(util.wrapBody(argument));
+	 }, function fail(argument) {
+	 	 // body...  
+	 	 res.json(util.wrapBody(argument, "E"));
+	 });
+
+}
+
 exports.updateById = function (req, res) {
 	 /* body... */ 
 	 var updateContent = req.body.updateContent;
@@ -100,4 +115,11 @@ exports.deleteById = function (req, res) {
 	 })
 }
 
+exports.getPhaseMapping = function (req, res) {
+	 res.json(util.wrapBody(Project.schema.statics.Phase));
+}
+
+exports.getStateMapping = function (req, res) {
+	 res.json(util.wrapBody(Project.schema.statics.State));
+}
 

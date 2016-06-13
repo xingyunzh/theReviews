@@ -56,6 +56,16 @@ app.service('util', function ($q, $uibModal) {
 		 return -1;
 	};
 
+	this.keyForValue = function (obj, value) {
+		for(key in obj){
+			if (obj[key] === value) {
+				return key;
+			};
+		}
+
+		return null;
+	};
+
 	this.confirmationStep = function(aTitle, aConent) {
 		var deferred = $q.defer();
 

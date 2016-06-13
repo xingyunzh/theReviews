@@ -17,7 +17,7 @@
 				<br><br><br><br><br>
 			</uib-accordion-group>			
 
-			<uib-accordion-group heading="我的项目">
+			<uib-accordion-group is-open="true" heading="我的项目">
 				<div class="r-wp-board" ng-show = "panel.teams.length > 0">
 					<button class="btn btn-default r-wp-small-margin-bottom" type="button" ng-click="panel.isCreateProjectCollapsed = !panel.isCreateProjectCollapsed">创建新项目</button>
 					<div uib-collapse="panel.isCreateProjectCollapsed">
@@ -45,6 +45,33 @@
 
 						<button class="btn btn-primary form-control" ng-click="createProject()" ng-disabled="panel.teams.length == 0">提交</button>					
 					</div>
+
+					<table class="table table-bordered">
+						<tr>
+							<th>序号</th>
+							<th>名称</th>
+							<th>描述</th>
+							<th>阶段</th>
+							<th>团队</th>
+							<th>操作</th>
+						</tr>
+
+						<tr ng-repeat="prj in panel.projects">
+							<td>P{{panel.projects.indexOf(prj)}}</td>
+							<td>{{prj.name}}</td>
+							<td>{{prj.description}}</td>
+							<td>{{prj.phase | mapping:panel.projectPhaseMapping}}</td>
+							<td>{{prj.team.name}}</td>
+							<td>
+								<button class="btn btn-primary" ng-click="workOnProject(prj)">开始工作</button> 
+								<span ng-show="currentUser._id == prj.owner._id">
+									<button class="btn btn-default" ng-click="deleteProject(prj)">删除</button>
+									<!-- <button class="btn btn-default" ng-click="deactiveProject(prj)">封存</button> -->
+								</span>
+							</td>
+						</tr>
+					</table>
+
 				</div>
 
 				<div ng-hide = "panel.teams.length > 0">
@@ -52,7 +79,7 @@
 				</div>
 			</uib-accordion-group>
 
-			<uib-accordion-group is-open="true" heading="我的团队">
+			<uib-accordion-group heading="我的团队">
 				<div class="r-wp-board">
 					<button class="btn btn-default r-wp-small-margin-bottom" type="button" ng-click="panel.isCreateTeamCollapsed = !panel.isCreateTeamCollapsed">创建新团队</button>
 					<div uib-collapse="panel.isCreateTeamCollapsed">

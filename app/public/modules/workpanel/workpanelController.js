@@ -1,7 +1,25 @@
 
-app.controller("workpanelController", function($rootScope, $scope, $q, teamService, userService, util) {
-	$scope.panel = {usernameToInvite : "",isInviteCollapsed:true, isCreateTeamCollapsed:true, teams:[]};
+app.controller("workpanelController", function($rootScope, $scope, $q, teamService, userService, projectService,util) {
+	$scope.panel = {usernameToInvite : "",isInviteCollapsed:true, isCreateTeamCollapsed:true, isCreateProjectCollapsed:true,teams:[], projects:[]};
 
+	$scope.initialize = function () {
+		$scope.fetchTeams();
+
+		projectService.getPhaseMapping().then(function (mapping) {
+			 $scope.panel.projectPhaseMapping = mapping;
+		}, function () {
+			 $scope.panel.projectPhaseMapping = null; 
+		});
+
+		projectService.getStateMapping().then(function (mapping) {
+			 $scope.panel.projectStateMapping = mapping;
+		}, function () {
+			 $scope.panel.projectStateMapping = null; 
+		});
+		// $scope.
+	};
+
+//Teams
 	$scope.fetchTeams = function(tabName) {
 		teamService.getByUser($rootScope.currentUser._id).then(function success(ts) {
 			$scope.panel.teams = _.orderBy(ts, ['setupDate'],['asc']);
@@ -13,12 +31,14 @@ app.controller("workpanelController", function($rootScope, $scope, $q, teamServi
 					return obj1.name == obj2.name;
 				});
 
-				console.log("selected index " + $scope.panel.activeTeamTabIndex );
+			
+
 			}else {
 				$scope.panel.activeTeamTabIndex = 0;
 			};
 
 			$scope.panel.projectTeam = $scope.panel.teams[$scope.panel.activeTeamTabIndex];
+			$scope.fetchProjectsFromTeams(ts);
 
 		}, function fail(argument) {
 			toastr.warning("读取团队信息失败",
@@ -29,7 +49,6 @@ app.controller("workpanelController", function($rootScope, $scope, $q, teamServi
 		});
 	};
 
-	$scope.fetchTeams();
 
 
 	$scope.invite = function () {
@@ -205,7 +224,7 @@ app.controller("workpanelController", function($rootScope, $scope, $q, teamServi
 	};
 
 	$scope.releaseTeam = function(team) {
-		util.confirmationStep("解散团队", "是否决定解散" + team.name + "？ -此操作无法撤销。").then(function ok(argument) {
+		util.confirmationStep("解散团队", "是否决定解散 " + team.name + " ？ (此操作无法撤销)。").then(function ok(argument) {
 			teamService.releaseTeamById(team._id).then(function success() {
 				toastr.info("成功解散团队", "Info");
 				$scope.fetchTeams();
@@ -218,7 +237,64 @@ app.controller("workpanelController", function($rootScope, $scope, $q, teamServi
 		}, function cancel() {
 
 		});
+	};
+
+//Projects
+
+	$scope.fetchProjectsFromTeams = function (teams) {
+		 /* body... */ 
+		 if (teams == null || teams.length == 0) {
+		 	return;
+		 };
+
+		 projectService.getProjectsByTeams(teams).then(function success(pjts) {
+		 	 $scope.panel.projects = pjts;
+
+		 }, function fail(argument) {
+		 	 toastr.warning("项目查找失败！", "错误", {timeOut:10, closeButton:true});
+		 })
 	}
 
+	$scope.createProject = function () {
+		if ($scope.panel.projectNameToCreate == null) {
+			toastr.warning("项目名不能为空！", "错误", {timeOut:0, closeButton:true});
+			return;
+		};
 
+		var p = {name : $scope.panel.projectNameToCreate, description : $scope.panel.projectDescriptionToCreate};
+		p.team = $scope.panel.projectTeam._id;
+		p.endDate = new Date().setMonth(new Date().getMonth() + 6);
+
+		projectService.createProject(p).then(function success(ps) {
+			 $scope.panel.projects = _.orderBy(ps, ['createDate'], ['desc']);
+			 $scope.panel.isCreateProjectCollapsed = true;
+			 $scope.fetchProjectsFromTeams($scope.panel.teams);
+
+		}, function fail(argument) {
+			 // body...  
+			 toastr.warning("项目创建失败，请稍后再试！", "错误", {timeOut:10, closeButton:true});
+		});
+	};
+
+	$scope.workOnProject = function (project) {
+		 console.log("workon " +　project.name);
+	}
+
+	$scope.deleteProject = function(project) {
+
+		util.confirmationStep("删除项目", "请确认是否删除项目:" + project.name + " ?").then(function ok(argument) {
+			projectService.deleteProject(project).then(function success() {
+				toastr.info("删除成功！", "Info");
+
+				$scope.fetchProjectsFromTeams($scope.panel.teams);
+			}, function fail(argument) {
+				toastr.warning("操作失败，请稍后再试！", "Info");
+			});
+		}, function cancel(argument) {
+			// do nothing.
+		});
+
+	}
+
+	$scope.initialize();
 });

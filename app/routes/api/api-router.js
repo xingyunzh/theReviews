@@ -7,6 +7,7 @@ var teamAPI = require("./team-api");
 var projectAPI = require("./project-api");
 var changeRequestAPI = require("./change-request-api");
 var iterationAPI = require("./iteration-api");
+var reviewAPI = require("./review-api");
 
 
 module.exports = router;
@@ -17,3 +18,4 @@ router.use("/team", teamAPI);
 router.use("/project", projectAPI);
 router.use("/changeRequest", changeRequestAPI);
 router.use("/iteration", iterationAPI);
+router.use("/review", reviewAPI);
