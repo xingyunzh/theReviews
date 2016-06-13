@@ -18,4 +18,8 @@ app.service('teamService', function (httpHelper) {
 
 		 return httpHelper.sendRequest("POST", "/api/team/updatebyid/"+teamId, data);
 	}
+
+	this.releaseTeamById = function (teamId) {
+		 return httpHelper.sendRequest("GET", "api/team/deletebyid/"+teamId);
+	}
 });

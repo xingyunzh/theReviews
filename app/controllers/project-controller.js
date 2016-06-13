@@ -11,7 +11,7 @@ exports.create = function (req, res) {
 	 	createDate : new Date(),
 	 	endDate : req.body.endDate,
 
-	 	phase : Project.Phase.RequirementAnalysis,
+	 	phase : Project.Phase.Initial,
 	 	state : Project.State.Active,
 
 	 	owner : req.user,

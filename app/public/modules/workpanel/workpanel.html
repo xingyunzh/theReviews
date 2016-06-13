@@ -74,7 +74,11 @@
 				<uib-tabset active="panel.activeTeamTabIndex">
 					<uib-tab index="$index" ng-repeat="team in panel.teams" heading="{{team.name}}">
 						<div class="r-wp-board" ng-show="currentUser._id == team.leader._id">
-							<button class="btn btn-default r-wp-small-margin-bottom" type="button" ng-click="panel.isInviteCollapsed = !panel.isInviteCollapsed">邀请面板</button>
+							<div class="row r-wp-team-leader-panel">
+								<button class="btn btn-default r-wp-small-margin-bottom" type="button" ng-click="panel.isInviteCollapsed = !panel.isInviteCollapsed">邀请面板</button>
+								<button class="btn btn-default r-wp-small-margin-bottom" type="button" ng-click="releaseTeam(team)">解散团队</button>								
+							</div>
+
 							<div uib-collapse="panel.isInviteCollapsed">
 								<div class="row">
 									<div class="col-md-6">

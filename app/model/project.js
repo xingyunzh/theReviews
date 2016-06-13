@@ -27,11 +27,12 @@ module.exports = mongoose.model('Project', ProjectSchema);
 
 //Internal Types
 var Phase = {
-	RequirementAnalysis:0,
-	ArchitectureDefine:1,
-	ProjectPlan:2,
-	IterationX:3,
-	End:4
+	Initial:0,
+	RequirementAnalysis:1,
+	ArchitectureDefine:2,
+	ProjectPlan:3,
+	IterationX:4,
+	End:5
 }
 
 var State = {
