@@ -1,6 +1,14 @@
 
-app.controller("workpanelController", function($rootScope, $scope, $q, teamService, userService, projectService,util) {
-	$scope.panel = {usernameToInvite : "",isInviteCollapsed:true, isCreateTeamCollapsed:true, isCreateProjectCollapsed:true,teams:[], projects:[]};
+app.controller("workpanelController", function($rootScope, $scope, $q, teamService, userService, projectService, reviewService,util) {
+	$scope.panel = {
+		usernameToInvite: "",
+		isInviteCollapsed: true,
+		isCreateTeamCollapsed: true,
+		isCreateProjectCollapsed: true,
+		workingProjectCollapse: true,
+		teams: [],
+		projects: []
+	};
 
 	$scope.initialize = function () {
 		$scope.fetchTeams();
@@ -16,7 +24,19 @@ app.controller("workpanelController", function($rootScope, $scope, $q, teamServi
 		}, function () {
 			 $scope.panel.projectStateMapping = null; 
 		});
-		// $scope.
+
+		reviewService.getContentTypeMapping().then(function (mapping) {
+			 $scope.panel.reviewContentTypeMapping = mapping;
+		}, function () {
+			 $scope.panel.reviewContentTypeMapping = null; 
+		});
+
+		reviewService.getStateMapping().then(function (mapping) {
+			 $scope.panel.reviewStateMapping = mapping;
+		}, function () {
+			 $scope.panel.reviewStateMapping = null; 
+		});
+
 	};
 
 //Teams
@@ -277,7 +297,8 @@ app.controller("workpanelController", function($rootScope, $scope, $q, teamServi
 	};
 
 	$scope.workOnProject = function (project) {
-		 console.log("workon " +　project.name);
+		 $scope.panel.workingProject = project;
+		 $scope.panel.workingProjectCollapse = false;
 	}
 
 	$scope.deleteProject = function(project) {

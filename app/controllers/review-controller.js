@@ -101,3 +101,11 @@ exports.deleteById = function (req, res) {
 	 	 };
 	 })
 }
+
+exports.getStateMapping = function (req, res) {
+	res.json(util.wrapBody(Review.schema.statics.State));
+}
+
+exports.getContentTypeMapping = function (req, res) {
+	 res.json(util.wrapBody(Review.schema.statics.ContentType));
+}

@@ -11,9 +11,6 @@ app.service('projectService', function (httpHelper, $q) {
 		});
 		return httpHelper.sendRequest("POST", '/api/project/getbyteams', {teams:teamIds});
 	};
-	// this.createTeam = function (team) {
-	// 	 return httpHelper.sendRequest("POST",  "/api/team/create", team);
-	// }
 
 	this.getPhaseMapping = function () {
 		var deferred = $q.defer();

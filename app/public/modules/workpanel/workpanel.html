@@ -20,7 +20,7 @@
 			<uib-accordion-group is-open="true" heading="我的项目">
 				<div class="r-wp-board" ng-show = "panel.teams.length > 0">
 					<button class="btn btn-default r-wp-small-margin-bottom" type="button" ng-click="panel.isCreateProjectCollapsed = !panel.isCreateProjectCollapsed">创建新项目</button>
-					<div uib-collapse="panel.isCreateProjectCollapsed">
+					<div uib-collapse="panel.isCreateProjectCollapsed" class="r-wp-board">
 						<div class="form-group">
 							<label for="r-id-wp-create-project-name">项目名称:</label>
 							<input type="text" id="r-id-wp-create-project-name" class="form-control" ng-model='panel.projectNameToCreate'>
@@ -63,7 +63,7 @@
 							<td>{{prj.phase | mapping:panel.projectPhaseMapping}}</td>
 							<td>{{prj.team.name}}</td>
 							<td>
-								<button class="btn btn-primary" ng-click="workOnProject(prj)">开始工作</button> 
+								<button class="btn btn-primary" ng-click="workOnProject(prj)">详情</button> 
 								<span ng-show="currentUser._id == prj.owner._id">
 									<button class="btn btn-default" ng-click="deleteProject(prj)">删除</button>
 									<!-- <button class="btn btn-default" ng-click="deactiveProject(prj)">封存</button> -->
@@ -71,6 +71,21 @@
 							</td>
 						</tr>
 					</table>
+
+					<div class="r-wp-board bordered" uib-collapse="panel.workingProjectCollapse">
+						<h3>{{panel.workingProject.name}}</h3>
+						<p>{{panel.workingProject.description}}</p>
+						<p>{{panel.workingProject.createDate}}</p>
+						<p>{{panel.workingProject.endDate}}</p>
+						<div class="btn-group" uib-dropdown>
+							<button class="btn btn-primary" type="button" uib-dropdown-toggle="">{{panel.workingProject.phase | mapping:panel.projectPhaseMapping}}<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" uid-dropdown-menu role="menu" aria-labelledby="btn-menu">
+								<li role="menuitem" ng-repeat="(k,v) in panel.projectPhaseMapping" ><a ng-click="panel.workingProject.phase=v">{{k}}</a></li>
+							</ul>
+						</div>
+
+					</div>
 
 				</div>
 

@@ -18,5 +18,9 @@ router.post('/create', auth.authenticator, con.create);
 
 router.post('/updatebyid/:id', con.updateById);
 
+router.get('/getstatemapping', con.getStateMapping);
+
+router.get('/getcontenttypemapping', con.getContentTypeMapping);
+
 
 module.exports = router;
