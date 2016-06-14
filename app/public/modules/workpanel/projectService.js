@@ -55,6 +55,10 @@ app.service('projectService', function (httpHelper, $q) {
 	this.deleteProject = function (project) {
 		 return httpHelper.sendRequest('GET', '/api/project/deletebyid/' + project._id);
 	};
+
+	this.updateProjectById = function (projectId, update) {
+		return httpHelper.sendRequest('POST', '/api/project/updatebyid/' + projectId, {updateContent : update});	 
+	};
 });
 
 

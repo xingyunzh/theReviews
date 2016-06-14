@@ -7,7 +7,16 @@ app.controller("workpanelController", function($rootScope, $scope, $q, teamServi
 		isCreateProjectCollapsed: true,
 		workingProjectCollapse: true,
 		teams: [],
-		projects: []
+		projects: [],
+		workingProjectBackupSpace : {},
+		workingProjectDateOptions: {
+			minDate: new Date().setDate(new Date().getDate() - 1),
+			startingDay: 1
+		},
+		workingProjectDatePicker:{
+			popOpen:false,
+			dateValue:new Date()
+		}
 	};
 
 	$scope.initialize = function () {
@@ -298,6 +307,11 @@ app.controller("workpanelController", function($rootScope, $scope, $q, teamServi
 
 	$scope.workOnProject = function (project) {
 		 $scope.panel.workingProject = project;
+
+		 $scope.panel.workingProjectBackupSpace.phase = project.phase;
+		 $scope.panel.workingProjectBackupSpace.state = project.state;
+
+		 $scope.panel.workingProjectDatePicker.dateValue = new Date(project.endDate);
 		 $scope.panel.workingProjectCollapse = false;
 	}
 
@@ -315,6 +329,55 @@ app.controller("workpanelController", function($rootScope, $scope, $q, teamServi
 			// do nothing.
 		});
 
+	}
+
+	$scope.editProjectName = function () {
+		 util.modalTextInputStep("项目名", $scope.panel.workingProject.name).then(function ok(argument) {
+		 	 projectService.updateProjectById($scope.panel.workingProject._id, {name:argument}).then(function success(data) {
+		 	 	 $scope.panel.workingProject.name = argument;
+		 	 });
+		 });
+	}
+
+	$scope.editProjectDescription = function () {
+		 util.modalTextInputStep("项目简介", $scope.panel.workingProject.description).then(function ok(argument) {
+		 	 projectService.updateProjectById($scope.panel.workingProject._id, {description:argument}).then(function success() {
+		 	 	 $scope.panel.workingProject.description = argument;
+		 	 });
+		 });
+	}
+
+	$scope.editProjectPhase = function() {
+		projectService.updateProjectById($scope.panel.workingProject._id, {
+			phase: $scope.panel.workingProject.phase
+		}).then(function success(argument) {
+			$scope.panel.workingProjectBackupSpace.phase = $scope.panel.workingProject.phase;
+		}, function fail(argument) {
+			toastr.warning("操作失败，请稍后再试！", "系统错误");
+			$scope.panel.workingProject.phase = $scope.panel.workingProjectBackupSpace.phase;
+		});
+	}
+
+	$scope.editProjectState = function() {
+		projectService.updateProjectById($scope.panel.workingProject._id, {
+			phase: $scope.panel.workingProject.state
+		}).then(function success(argument) {
+			$scope.panel.workingProjectBackupSpace.state = $scope.panel.workingProject.state;
+		}, function fail(argument) {
+			toastr.warning("操作失败，请稍后再试！", "系统错误");
+			$scope.panel.workingProject.state = $scope.panel.workingProjectBackupSpace.state;
+		});
+	}
+
+	$scope.editProjectEndDate = function () {
+		 projectService.updateProjectById($scope.panel.workingProject._id, {
+		 	endDate:$scope.panel.workingProjectDatePicker.dateValue
+		 }).then(function success (argument) {
+		 	 $scope.panel.workingProject.endDate = $scope.panel.workingProjectDatePicker.dateValue;
+		 }, function fail (argument) {
+		 	 toastr.warning("操作失败，请稍后再试！", "系统错误");
+		 	 $scope.panel.workingProjectDatePicker.dateValue = $scope.panel.workingProject.endDate;
+		 });
 	}
 
 	$scope.initialize();

@@ -1,13 +1,15 @@
 var kConfirmationHTML = "modules/common/confirmation.html";
-var kConfirmationController = 'commonConfirmationController';
+var kModalInputTextHTML = "modules/common/modal-text-input.html";
+var kConfirmationController = 'commonModalController';
 
 app.controller(kConfirmationController, function ($scope, $uibModalInstance, title, content) {
 	$scope.title = title;
-	$scope.content = content;
+	$scope.modal = {};
+	$scope.modal.content = content;
 
 	$scope.ok = function () {
 		 /* body... */ 
-		 $uibModalInstance.close();
+		 $uibModalInstance.close($scope.modal.content);
 	};
 
 	$scope.cancel = function () {
@@ -91,5 +93,32 @@ app.service('util', function ($q, $uibModal) {
 		});
 
 		return deferred.promise;
+	};
+
+	this.modalTextInputStep = function (aTitle, aConent) {
+		var deferred = $q.defer();
+
+		var modalInstance = $uibModal.open({
+			animation: true,
+			templateUrl: kModalInputTextHTML,
+			controller: kConfirmationController,
+			size: "lg",
+			resolve: {
+				title: function() {
+					return aTitle;
+				},
+				content: function() {
+					return aConent;
+				}
+			}
+		});
+
+		modalInstance.result.then(function ok(content) {
+			deferred.resolve(content);
+		}, function cancel(argument) {
+			deferred.reject("cancel");
+		});
+
+		return deferred.promise; 
 	};
 });

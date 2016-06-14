@@ -78,11 +78,20 @@
 
 						<div class="row">
 							<div class="col-md-6">
-								<p>创建时间：{{panel.workingProject.createDate}}</p>
+								<p>创建时间：{{panel.workingProject.createDate | date:"yyyy-MM-dd"}}</p>
 							</div>
 
 							<div class="col-md-6">
-								<p>结束时间：{{panel.workingProject.endDate}}</p>
+								<p class="r-float-left">结束时间：</p>
+								<p class="input-group r-wp-date-picker-popup r-float-left">
+									<input type="text" class="form-control" id="r-wp-working-project-end-date" uib-datepicker-popup ng-model="panel.workingProjectDatePicker.dateValue" is-open="panel.workingProjectDatePicker.popOpen" datepicker-options="panel.workingProjectDateOptions" close-text="关闭" ng-change="editProjectEndDate()">
+
+									<span class="input-group-btn">
+										<button class="btn btn-default" type="button" ng-click="panel.workingProjectDatePicker.popOpen = true;">
+											<i class="glyphicon glyphicon-calendar"></i>
+										</button>
+									</span>
+						        </p>
 							</div>
 						</div>
 
@@ -96,7 +105,7 @@
 									</button>
 
 									<ul class="dropdown-menu" uid-dropdown-menu role="menu" aria-labelledby="btn-menu">
-										<li role="menuitem" ng-repeat="(k,v) in panel.projectPhaseMapping" ><a ng-click="panel.workingProject.phase=v">{{k}}</a></li>
+										<li role="menuitem" ng-repeat="(k,v) in panel.projectPhaseMapping" ><a ng-click="panel.workingProject.phase=v;editProjectPhase();">{{k}}</a></li>
 									</ul>
 								</div>								
 							</div>
@@ -108,7 +117,7 @@
 									</button>
 	
 									<ul class="dropdown-menu" uid-dropdown-menu="" role="menu" aria-labelledby="btn-menu">
-										<li role="menuitem" ng-repeat="(k,v) in panel.projectStateMapping"><a href="" ng-click="panel.workingProject.state=v">{{k}}</a></li>
+										<li role="menuitem" ng-repeat="(k,v) in panel.projectStateMapping"><a href="" ng-click="panel.workingProject.state=v;editProjectState();">{{k}}</a></li>
 									</ul>
 								</div>
 
@@ -148,7 +157,7 @@
 
 						</div>
 						
-						<button class="btn btn-success r-float-right" ng-click="saveWorkingProject()">保存更改</button>
+						<!-- <button class="btn btn-success r-float-right" ng-click="saveWorkingProject()">保存更改</button> -->
 					</div>
 
 				</div>
