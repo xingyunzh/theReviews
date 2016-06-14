@@ -1,4 +1,4 @@
-app.service('userService', ["$http", "$q", function ($http, $q) {
+app.service('userService', function ($http, $q, httpHelper) {
 	this.getCurrentUser = function(token){
 		
 		var deferred = $q.defer();
@@ -116,5 +116,8 @@ app.service('userService', ["$http", "$q", function ($http, $q) {
 		 return deferred.promise;
 	}
 
+	this.getByKeyword = function (keyword) {
+		 return httpHelper.sendRequest("GET", '/api/user/getbykeyword/'+keyword);
+	}
 
-}]);
+});

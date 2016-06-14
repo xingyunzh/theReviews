@@ -50,6 +50,19 @@ exports.getByUsername = function(req, res){
 	});
 };
 
+exports.getByKeyword = function (req, res) {
+	var key = req.params.keyword;
+
+	User.find({username:{$regex:key, $options:'i'}}, function (err, users) {
+		 if (err) {
+		 	res.json(util.wrapBody(err, "E"));
+		 }else {
+		 	_.map(users, secureUserInfo);
+		 	res.json(util.wrapBody(users));
+		 };
+	});
+}
+
 exports.getById = function(req, res){
 	var idToSearch = req.params.id;
 

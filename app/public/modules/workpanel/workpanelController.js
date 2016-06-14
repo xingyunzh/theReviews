@@ -98,7 +98,6 @@ app.controller("workpanelController", function($rootScope, $scope, $q, teamServi
 			};
 
 			util.confirmationStep("发送邀请", "确认要发送邀请给：" + username + " " + $scope.panel.inviteRoleCN + "?").then(function ok(argument) {
-				console.log("confirmed to send");
 				var t = $scope.panel.teams[$scope.panel.activeTeamTabIndex];
 				var update = {};
 				if ($scope.panel.inviteRoleCN === "教练") {
@@ -378,6 +377,80 @@ app.controller("workpanelController", function($rootScope, $scope, $q, teamServi
 		 	 toastr.warning("操作失败，请稍后再试！", "系统错误");
 		 	 $scope.panel.workingProjectDatePicker.dateValue = $scope.panel.workingProject.endDate;
 		 });
+	}
+
+	$scope.editProjectOwner = function () {
+		 util.modalUserInputStep("项目经理").then(function(user) {
+		 	 projectService.updateProjectById($scope.panel.workingProject._id, {
+		 	 	owner:user._id
+		 	 }).then(function success(argument) {
+		 	 	$scope.panel.workingProject.owner = user; 
+		 	 }, function fail(argument) {
+		 	 	toastr.warning("操作失败，请稍后再试！", "系统错误");
+		 	 });
+		 });
+	}
+
+	$scope.editProductOwner = function () {
+		 util.modalUserInputStep("产品经理").then(function(user) {
+		 	 projectService.updateProjectById($scope.panel.workingProject._id, {
+		 	 	productOwner:user._id
+		 	 }).then(function success(argument) {
+		 	 	$scope.panel.workingProject.productOwner = user; 
+		 	 }, function fail(argument) {
+		 	 	toastr.warning("操作失败，请稍后再试！", "系统错误");
+		 	 });
+		 });		 
+	}
+
+	$scope.addNewStakeholder = function() {
+		var stakes = _.map($scope.panel.workingProject.stakeholders, function(obj) {
+			if (angular.isUndefined(obj._id)) {
+				return obj;
+			} else {
+				return obj._id;
+			};
+		});
+
+		util.modalUserInputStep("添加新的干系人").then(function(user) {
+			stakes.push(user._id);
+
+			projectService.updateProjectById($scope.panel.workingProject._id, {
+				stakeholders: stakes
+			}).then(function success(argument) {
+				$scope.panel.workingProject.stakeholders.push(user);
+			}, function fail(argument) {
+				toastr.warning("操作失败，请稍后再试！", "系统错误");
+			});
+		});
+	}
+
+	$scope.deleteStakeholder = function(stakeholder) {
+		util.confirmationStep("删除干系人", "确认删除干系人：" + stakeholder.name + "?").then(function success(argument) {
+			var stakes = _.map($scope.panel.workingProject.stakeholders, function(obj) {
+				if (angular.isUndefined(obj._id)) {
+					return obj;
+				} else {
+					return obj._id;
+				};
+			});
+
+			_.remove(stakes, function(userId) {
+				return stakeholder._id === userId;
+			});
+
+			projectService.updateProjectById($scope.panel.workingProject._id, {
+				stakeholders: stakes
+			}).then(function success(argument) {
+				_.remove($scope.panel.workingProject.stakeholders, function(obj) {
+					return obj === stakeholder._id || obj._id === stakeholder._id;
+				});
+
+			}, function fail(argument) {
+				toastr.warning("操作失败，请稍后再试！", "系统错误");
+			});
+
+		});
 	}
 
 	$scope.initialize();

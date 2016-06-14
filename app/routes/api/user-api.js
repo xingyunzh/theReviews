@@ -22,5 +22,7 @@ router.post('/add', con.add);
 
 router.post('/updateprofile', auth.authenticator, con.updateProfile);
 
+router.get('/getbykeyword/:keyword', con.getByKeyword);
+
 
 module.exports = router;

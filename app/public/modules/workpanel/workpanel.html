@@ -72,9 +72,13 @@
 						</tr>
 					</table>
 
+
+					<button class="btn btn-default r-float-right" ng-hide="panel.workingProjectCollapse" ng-click="panel.workingProjectCollapse = true;">收起详情</button>
+
 					<div class="r-wp-board" uib-collapse="panel.workingProjectCollapse">
-						<h3>项目名：{{panel.workingProject.name}} <small><a href="#" ng-click="editProjectName()"><span class="glyphicon glyphicon-pencil"></span></a> </small> </h3>
-						<p>项目简介：{{panel.workingProject.description}} <a href="#" ng-click="editProjectDescription()"><span class="glyphicon glyphicon-pencil"></span></a></p>
+						<h3>项目名：{{panel.workingProject.name}} <small><a ng-click="editProjectName()"><span class="glyphicon glyphicon-pencil"></span></a> </small> </h3>
+
+						<p>项目简介：{{panel.workingProject.description}} <a ng-click="editProjectDescription()"><span class="glyphicon glyphicon-pencil"></span></a></p>
 
 						<div class="row">
 							<div class="col-md-6">
@@ -99,7 +103,7 @@
 						
 						<div class="row">
 							<div class="col-md-6">
-								<div class="r-wp-width-5em r-float-left">项目阶段:</div>
+								<div class="r-wp-width-5em r-float-left">项目阶段：</div>
 								<div class="btn-group r-float-left" uib-dropdown>
 									<button class="btn btn-default" type="button" uib-dropdown-toggle="">{{panel.workingProject.phase | mapping:panel.projectPhaseMapping}}<span class="caret"></span>
 									</button>
@@ -111,7 +115,7 @@
 							</div>
 
 							<div class="col-md-6">
-								<div class="r-wp-width-5em r-float-left">项目状态:</div>
+								<div class="r-wp-width-5em r-float-left">项目状态：</div>
 								<div class="btn-group r-float-left" uib-dropdown>
 									<button class="btn btn-default" type="button" uib-dropdown-toggle="">{{panel.workingProject.state | mapping:panel.projectStateMapping}} <span class="caret"></span> 
 									</button>
@@ -137,7 +141,7 @@
 							<div class="col-md-6">
 								<div class="r-wp-width-5em r-float-left">产品经理：</div>
 								<div class="r-float-left">
-									<p>{{panel.workingProject.productOwner.name}} <a href="#" ng-click="editProjectOwner()"><span class="glyphicon glyphicon-pencil"></span></a></p>
+									<p>{{panel.workingProject.productOwner.name}} <a href="#" ng-click="editProductOwner()"><span class="glyphicon glyphicon-pencil"></span></a></p>
 								</div>
 							</div>
 						</div>
@@ -147,9 +151,9 @@
 								<div class="r-float-left">其他干系人：</div>
 								<div class="r-float-left">
 									<ul>
-										<li ng-repeat="stakeholder in panel.workingProject.stakeholders">{{stakeholder.name}} <a href="#" ng-click="deleteStakeholder(stakehoder)"><span class="glyphicon glyphicon-remove"></span></a></li>
+										<li ng-repeat="stakeholder in panel.workingProject.stakeholders">{{stakeholder.name}} <a ng-click="deleteStakeholder(stakeholder)"><span class="glyphicon glyphicon-remove"></span></a></li>
 
-										<li>添加新的干系人 <a href="#" ng-click="addNewStakeholder()"><span class="glyphicon glyphicon-plus"></span></a></li>
+										<li> <a ng-click="addNewStakeholder()"><span class="glyphicon glyphicon-plus"></span></a></li>
 									</ul>
 								</div>								
 							</div>

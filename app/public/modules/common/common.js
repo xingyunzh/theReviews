@@ -1,6 +1,8 @@
 var kConfirmationHTML = "modules/common/confirmation.html";
 var kModalInputTextHTML = "modules/common/modal-text-input.html";
+var kModalUserInputHTML = "modules/common/modal-user-input.html";
 var kConfirmationController = 'commonModalController';
+var kUserModalSuggestionController = 'userModalSuggestionController'
 
 app.controller(kConfirmationController, function ($scope, $uibModalInstance, title, content) {
 	$scope.title = title;
@@ -16,6 +18,24 @@ app.controller(kConfirmationController, function ($scope, $uibModalInstance, tit
 		 /* body... */ 
 		 $uibModalInstance.dismiss("cancel");
 	};
+});
+
+app.controller(kUserModalSuggestionController, function ($scope, $uibModalInstance, title, userService) {
+	 $scope.title = title;
+	 $scope.getSuggestUsers = function(keyword) {
+	 	 return userService.getByKeyword(keyword);
+	 }
+
+	$scope.ok = function () {
+		 /* body... */ 
+		 $uibModalInstance.close($scope.modal.user);
+	};
+
+	$scope.cancel = function () {
+		 /* body... */ 
+		 $uibModalInstance.dismiss("cancel");
+	};
+
 });
 
 app.service('httpHelper', function ($http, $q, $rootScope) {
@@ -121,4 +141,28 @@ app.service('util', function ($q, $uibModal) {
 
 		return deferred.promise; 
 	};
+
+	this.modalUserInputStep = function (aTitle) {
+		var deferred = $q.defer();
+
+		var modalInstance = $uibModal.open({
+			animation: true,
+			templateUrl: kModalUserInputHTML,
+			controller: kUserModalSuggestionController,
+			size: "sm",
+			resolve: {
+				title: function() {
+					return aTitle;
+				},
+			}
+		});
+
+		modalInstance.result.then(function ok(user) {
+			deferred.resolve(user);
+		}, function cancel(argument) {
+			deferred.reject("cancel");
+		});
+
+		return deferred.promise; 		 
+	}
 });

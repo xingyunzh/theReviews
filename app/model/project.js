@@ -7,7 +7,7 @@ var ProjectSchema = new Schema({
 	owner:{type:Schema.Types.ObjectId, ref:"User"},
 	team : {type:Schema.Types.ObjectId, ref:"Team"},
 	productOwner: {type:Schema.Types.ObjectId, ref:"User"},
-	stakehoders:[{type:Schema.Types.ObjectId, ref:"User"}],   //TBD to be redesigned here
+	stakeholders:[{type:Schema.Types.ObjectId, ref:"User"}],   //TBD to be redesigned here
 
 	reviews:[{type:Schema.Types.ObjectId, ref:"Review"}],
 	changeRequests:[{type:Schema.Types.ObjectId, ref:"ChangeRequest"}],
