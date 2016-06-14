@@ -72,19 +72,83 @@
 						</tr>
 					</table>
 
-					<div class="r-wp-board bordered" uib-collapse="panel.workingProjectCollapse">
-						<h3>{{panel.workingProject.name}}</h3>
-						<p>{{panel.workingProject.description}}</p>
-						<p>{{panel.workingProject.createDate}}</p>
-						<p>{{panel.workingProject.endDate}}</p>
-						<div class="btn-group" uib-dropdown>
-							<button class="btn btn-primary" type="button" uib-dropdown-toggle="">{{panel.workingProject.phase | mapping:panel.projectPhaseMapping}}<span class="caret"></span>
-							</button>
-							<ul class="dropdown-menu" uid-dropdown-menu role="menu" aria-labelledby="btn-menu">
-								<li role="menuitem" ng-repeat="(k,v) in panel.projectPhaseMapping" ><a ng-click="panel.workingProject.phase=v">{{k}}</a></li>
-							</ul>
+					<div class="r-wp-board" uib-collapse="panel.workingProjectCollapse">
+						<h3>项目名：{{panel.workingProject.name}} <small><a href="#" ng-click="editProjectName()"><span class="glyphicon glyphicon-pencil"></span></a> </small> </h3>
+						<p>项目简介：{{panel.workingProject.description}} <a href="#" ng-click="editProjectDescription()"><span class="glyphicon glyphicon-pencil"></span></a></p>
+
+						<div class="row">
+							<div class="col-md-6">
+								<p>创建时间：{{panel.workingProject.createDate}}</p>
+							</div>
+
+							<div class="col-md-6">
+								<p>结束时间：{{panel.workingProject.endDate}}</p>
+							</div>
 						</div>
 
+						
+						
+						<div class="row">
+							<div class="col-md-6">
+								<div class="r-wp-width-5em r-float-left">项目阶段:</div>
+								<div class="btn-group r-float-left" uib-dropdown>
+									<button class="btn btn-default" type="button" uib-dropdown-toggle="">{{panel.workingProject.phase | mapping:panel.projectPhaseMapping}}<span class="caret"></span>
+									</button>
+
+									<ul class="dropdown-menu" uid-dropdown-menu role="menu" aria-labelledby="btn-menu">
+										<li role="menuitem" ng-repeat="(k,v) in panel.projectPhaseMapping" ><a ng-click="panel.workingProject.phase=v">{{k}}</a></li>
+									</ul>
+								</div>								
+							</div>
+
+							<div class="col-md-6">
+								<div class="r-wp-width-5em r-float-left">项目状态:</div>
+								<div class="btn-group r-float-left" uib-dropdown>
+									<button class="btn btn-default" type="button" uib-dropdown-toggle="">{{panel.workingProject.state | mapping:panel.projectStateMapping}} <span class="caret"></span> 
+									</button>
+	
+									<ul class="dropdown-menu" uid-dropdown-menu="" role="menu" aria-labelledby="btn-menu">
+										<li role="menuitem" ng-repeat="(k,v) in panel.projectStateMapping"><a href="" ng-click="panel.workingProject.state=v">{{k}}</a></li>
+									</ul>
+								</div>
+
+							</div>
+						</div>
+	
+						<br>
+						<h4>项目相关人员</h4>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="r-wp-width-5em r-float-left">项目经理：</div>
+								<div class="r-float-left">
+									<p>{{panel.workingProject.owner.name}} <a href="#" ng-click="editProjectOwner()"><span class="glyphicon glyphicon-pencil"></span></a></p>
+								</div>
+							</div>
+
+							<div class="col-md-6">
+								<div class="r-wp-width-5em r-float-left">产品经理：</div>
+								<div class="r-float-left">
+									<p>{{panel.workingProject.productOwner.name}} <a href="#" ng-click="editProjectOwner()"><span class="glyphicon glyphicon-pencil"></span></a></p>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-12">
+								<div class="r-float-left">其他干系人：</div>
+								<div class="r-float-left">
+									<ul>
+										<li ng-repeat="stakeholder in panel.workingProject.stakeholders">{{stakeholder.name}} <a href="#" ng-click="deleteStakeholder(stakehoder)"><span class="glyphicon glyphicon-remove"></span></a></li>
+
+										<li>添加新的干系人 <a href="#" ng-click="addNewStakeholder()"><span class="glyphicon glyphicon-plus"></span></a></li>
+									</ul>
+								</div>								
+							</div>
+
+
+						</div>
+						
+						<button class="btn btn-success r-float-right" ng-click="saveWorkingProject()">保存更改</button>
 					</div>
 
 				</div>
