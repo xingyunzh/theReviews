@@ -1,4 +1,4 @@
-app.service('reviewService', function (httpHelper, $q) {
+app.service('reviewService', function (httpHelper, $q, $uibModal) {
 
 	this.createReview = function(review) {
 		/* body... */
@@ -6,6 +6,9 @@ app.service('reviewService', function (httpHelper, $q) {
 	};
 
 
+	this.updateReviewById = function (reviewId, content) {
+		 return httpHelper.sendRequest("POST", "/api/review/updatebyid/"+reviewId, {updateContent:content});
+	}
 
 	this.getStateMapping = function(argument) {
 		var deferred = $q.defer();
@@ -48,4 +51,30 @@ app.service('reviewService', function (httpHelper, $q) {
 	this.deleteReview = function (review) {
 		 return httpHelper.sendRequest('GET', '/api/review/deletebyid/' + review._id);
 	};
+
+	this.reviewPanelModalStep = function (aTitle, aReview){
+		var deferred = $q.defer();
+		var modalInstance = $uibModal.open({
+			animation: true,
+			templateUrl: "/modules/workpanel/review-panel.html",
+			controller: "reviewPanelController",
+			size: "lg",
+			resolve: {
+				title: function() {
+					return aTitle;
+				},
+				review: function() {
+					return aReview;
+				}
+			}
+		});
+
+		modalInstance.result.then(function ok(reviewId) {
+			deferred.resolve(reviewId);
+		}, function cancel(argument) {
+			deferred.reject("cancel");
+		});
+
+		return deferred.promise;
+	}
 });

@@ -32,7 +32,7 @@ exports.create = function (req, res) {
 	 	dueDate : req.body.dueDate,
 	 	meetings : req.body.meetings,
 
-	 	state : Review.State.Initial,
+	 	state : req.body.state,
 	 	contentType : req.body.contentType,
 	 });
 

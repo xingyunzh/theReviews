@@ -73,9 +73,14 @@
 					</table>
 
 
-					<button class="btn btn-default r-float-right" ng-hide="panel.workingProjectCollapse" ng-click="panel.workingProjectCollapse = true;">收起详情</button>
+					<div class="row">
+						<div class="col-md-6">
+							<button class="btn btn-default" ng-hide="panel.workingProjectCollapse" ng-click="panel.workingProjectCollapse = true;">收起详情</button>
+						</div>
+					</div>
 
-					<div class="r-wp-board" uib-collapse="panel.workingProjectCollapse">
+
+					<div class="r-wp-board r-wp-border" uib-collapse="panel.workingProjectCollapse">
 						<h3>项目名：{{panel.workingProject.name}} <small><a ng-click="editProjectName()"><span class="glyphicon glyphicon-pencil"></span></a> </small> </h3>
 
 						<p>项目简介：{{panel.workingProject.description}} <a ng-click="editProjectDescription()"><span class="glyphicon glyphicon-pencil"></span></a></p>
@@ -158,6 +163,13 @@
 								</div>								
 							</div>
 
+
+						</div>
+
+						<div class="row">
+							<div class="col-md-6">
+								<button class="btn btn-primary" ng-click="createReview()">新建评审</button>
+							</div>
 
 						</div>
 						

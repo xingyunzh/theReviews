@@ -1,0 +1,139 @@
+<div>
+	<div class="modal-header">
+		<h3 class="modal-title">{{title}}</h3>
+	</div>
+
+	<div class="modal-body">
+		<h4>{{modal.review.name}} <a ng-click="editReviewName()"><span class="glyphicon glyphicon-pencil"></span></a> 
+		</h4>
+			
+		<div class="row r-wp-small-margin-bottom">
+			<div class="col-md-6">
+				<div class="r-wp-width-5em r-float-left">评审内容：</div>
+				<div class="btn-group r-float-left" uib-dropdown>
+					<button class="btn btn-default" type="button" uib-dropdown-toggle="">{{modal.review.contentType | mapping:modal.reviewContentTypeMapping}}<span class="caret"></span>
+					</button>
+
+					<ul class="dropdown-menu" uid-dropdown-menu role="menu" aria-labelledby="btn-menu">
+						<li role="menuitem" ng-repeat="(k,v) in modal.reviewContentTypeMapping" ><a ng-click="editContentType(v)">{{k}}</a></li>
+					</ul>
+				</div>	
+			</div>
+
+			<div class="col-md-6">
+				<div class="r-wp-width-5em r-float-left">当前状态：</div>
+				<div class="btn-group r-float-left" uib-dropdown>
+					<button class="btn btn-default" type="button" uib-dropdown-toggle="">{{modal.review.state | mapping:modal.reviewStateMapping}}<span class="caret"></span>
+					</button>
+
+					<ul class="dropdown-menu" uid-dropdown-menu role="menu" aria-labelledby="btn-menu">
+						<li role="menuitem" ng-repeat="(ks,vs) in modal.reviewStateMapping" ><a ng-click="editState(vs);">{{ks}}</a></li>
+					</ul>
+				</div>	
+			</div>
+		</div>	
+
+		<div class="r-wp-small-margin-bottom">
+			GithubURL:<span>{{modal.review.gitURL}}</span> <a ng-click="editGitURL()"><span class="glyphicon glyphicon-pencil"></span></a> 
+		</div>
+
+		<div class="r-wp-small-margin-bottom">
+			DocURL:<span>{{modal.review.docURL}}</span> <a ng-click="editDocURL()"><span class="glyphicon glyphicon-pencil"></span></a> 
+		</div>
+
+		<div class="row r-wp-small-margin-bottom">
+			<div class="col-md-4">
+				<p>创建时间：{{modal.review.createDate | date:"yyyy-MM-dd"}}</p>
+			</div>
+
+			<div class="col-md-4">
+				<p class="r-float-left">开始时间：</p>
+				<p class="input-group r-wp-date-picker-popup r-float-left">
+					<input type="text" class="form-control" id="r-wp-rp-start-date" uib-datepicker-popup ng-model="modal.reviewDatePicker.startDate" is-open="modal.reviewDatePicker.popOpenS" datepicker-options="panel.reviewDatePickerOptions" close-text="关闭" ng-change="editReviewStartDate()">
+
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button" ng-click="modal.reviewDatePicker.popOpenS = true;">
+							<i class="glyphicon glyphicon-calendar"></i>
+						</button>
+					</span>
+		        </p>
+			</div>
+
+			<div class="col-md-4">
+				<p class="r-float-left">过期时间：</p>
+				<p class="input-group r-wp-date-picker-popup r-float-left">
+					<input type="text" class="form-control" id="r-wp-rp-due-date" uib-datepicker-popup ng-model="modal.reviewDatePicker.dueDate" is-open="modal.reviewDatePicker.popOpenD" datepicker-options="panel.reviewDatePicker.options" close-text="关闭" ng-change="editReviewDueDate()">
+
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button" ng-click="modal.reviewDatePicker.popOpenD = true;">
+							<i class="glyphicon glyphicon-calendar"></i>
+						</button>
+					</span>
+		        </p>
+			</div>
+		</div>
+
+		<div class="row r-wp-small-margin-bottom">
+			<div class="col-md-4">
+				<div class="r-wp-width-5em r-float-left">所有人：</div>
+				<div class="r-float-left">
+					<p>{{modal.review.owner.name}} <a href="#" ng-click="editReviewOwner()"><span class="glyphicon glyphicon-pencil"></span></a></p>
+				</div>
+			</div>
+
+			<div class="col-md-4">
+				<div class="r-wp-width-5em r-float-left">协调人：</div>
+				<div class="r-float-left">
+					<p>{{modal.review.mediator.name}} <a href="#" ng-click="editReviewMediator()"><span class="glyphicon glyphicon-pencil"></span></a></p>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="row r-wp-small-margin-bottom">
+			<div class="col-md-4">
+				<div class="r-float-left">评审者：</div>
+				<div class="r-float-left">
+					<ul>
+						<li ng-repeat="reviewer in modal.review.reviewers">{{reviewer.name}} <a ng-click="deleteReviewer(reviewer)"><span class="glyphicon glyphicon-remove"></span></a></li>
+
+						<li> <a ng-click="addNewReviewer()"><span class="glyphicon glyphicon-plus"></span></a></li>
+					</ul>
+				</div>								
+			</div>
+
+			<div class="col-md-4">
+				<div class="r-float-left">批准者：</div>
+				<div class="r-float-left">
+					<ul>
+						<li ng-repeat="approver in modal.review.approvers">{{approver.name}} <a ng-click="deleteApprover(approver)"><span class="glyphicon glyphicon-remove"></span></a></li>
+
+						<li> <a ng-click="addNewApprover()"><span class="glyphicon glyphicon-plus"></span></a></li>
+					</ul>
+				</div>								
+			</div>
+
+			<div class="col-md-4">
+				<div class="r-float-left">观察者：</div>
+				<div class="r-float-left">
+					<ul>
+						<li ng-repeat="observer in modal.review.observers">{{observer.name}} <a ng-click="deleteObserver(observer)"><span class="glyphicon glyphicon-remove"></span></a></li>
+
+						<li> <a ng-click="addNewObserver()"><span class="glyphicon glyphicon-plus"></span></a></li>
+					</ul>
+				</div>								
+			</div>
+
+
+		</div>
+
+
+
+	</div>
+
+	<div class="modal-footer">
+		<button class="btn btn-primary" type="button" ng-click="ok()" ng-show="modal.isCreating">确定</button>
+		<button class="btn btn-warning" type="button" ng-click="cancel()">{{modal.isCreating ? "取消" : "完成"}}</button>
+	</div>	
+</div>
+

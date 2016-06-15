@@ -453,5 +453,24 @@ app.controller("workpanelController", function($rootScope, $scope, $q, teamServi
 		});
 	}
 
+	$scope.createReview = function () {
+		 reviewService.reviewPanelModalStep("新建评审").then(function success(reviewId) {
+		 	var reviewsParam = _.map($scope.panel.workingProject.reviews, function (rv) {
+		 		 return rv._id;
+		 	});
+
+		 	reviewsParam.push(reviewId);
+
+		 	projectService.updateProjectById($scope.panel.workingProject._id, {
+		 		reviews:reviewsParam
+		 	}).then(function success(argument) {
+		 		$scope.panel.workingProject = argument;
+		 	}, function fail(argument) {
+		 		  toastr.warning("更新项目评审信息失败！", "系统错误");
+		 	});
+		 	 
+		 }); 
+	}
+
 	$scope.initialize();
 });

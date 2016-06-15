@@ -98,7 +98,7 @@ exports.updateById = function (req, res) {
 	 /* body... */ 
 	 var updateContent = req.body.updateContent;
 
-	 Project.findByIdAndUpdate(req.params.id, updateContent,{"new" : true}).exec().then(function success(argument) {
+	 Project.findByIdAndUpdate(req.params.id, updateContent,{"new" : true}).populate("owner team productOwner stakeholders reviews changeRequests iterations").exec().then(function success(argument) {
 	 	 res.json(util.wrapBody(argument));
 	 }, function fail(argument) {
 	 	 res.json(util.wrapBody(argument, "E"));
