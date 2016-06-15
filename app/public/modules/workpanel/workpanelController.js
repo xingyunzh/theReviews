@@ -472,5 +472,12 @@ app.controller("workpanelController", function($rootScope, $scope, $q, teamServi
 		 }); 
 	}
 
+	$scope.editReview = function (review) {
+		 reviewService.reviewPanelModalStep(review.name, review).then(function success(reviewId) {
+
+		 	 
+		 }); 		 
+	}
+
 	$scope.initialize();
 });

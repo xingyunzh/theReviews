@@ -84,7 +84,7 @@ exports.getByTeams = function (req, res) {
 	 	 return ObjectId(teamId);
 	 }); 
 
-	 Project.find({team:{$in : teamIds}}).populate("owner team productOwner stakeholders reviews changeRequests iterations").exec().then(function success(argument) {
+	 Project.find({team:{$in : teamIds}}).populate("owner team productOwner reviews stakeholders changeRequests iterations").exec().then(function success(argument) {
 	 	 /* body... */ 
 	 	 res.json(util.wrapBody(argument));
 	 }, function fail(argument) {

@@ -172,6 +172,25 @@
 							</div>
 
 						</div>
+
+						<p>项目评审：</p>
+						<div class="r-wp-carousel-card">
+							<uib-carousel active interval="5000">
+								<uib-slide ng-repeat="review in panel.workingProject.reviews" index="panel.workingProject.reviews.indexOf(review)">
+									<a ng-click="editReview(review)">
+										<img alt="背景图" ng-src="/images/review_bg_{{panel.workingProject.reviews.indexOf(review) % 2 + 1}}.jpg" style="margin:auto;">
+
+										<div class="carousel-caption">
+											<h3>{{review.name}}</h3>
+											<p>{{review.startDate | date:'yyyy-MM-dd'}}</p>
+											<p>{{review.dueDate | date:'yyyy-MM-dd'}}</p>
+
+										</div>
+									</a>
+
+								</uib-slide>
+							</uib-carousel>
+						</div>
 						
 						<!-- <button class="btn btn-success r-float-right" ng-click="saveWorkingProject()">保存更改</button> -->
 					</div>
