@@ -4,9 +4,9 @@
 	</div>
 
 	<div class="modal-body">
-		<h4>{{modal.review.name}} <a ng-click="editReviewName()"><span class="glyphicon glyphicon-pencil"></span></a> 
+		<h4>名称：{{modal.review.name}} <a ng-click="editReviewName()"><span class="glyphicon glyphicon-pencil"></span></a> 
 		</h4>
-			
+		<br>
 		<div class="row r-wp-small-margin-bottom">
 			<div class="col-md-6">
 				<div class="r-wp-width-5em r-float-left">评审内容：</div>
@@ -32,7 +32,7 @@
 				</div>	
 			</div>
 		</div>	
-
+		<br>
 		<div class="r-wp-small-margin-bottom">
 			GithubURL:<span>{{modal.review.gitURL}}</span> <a ng-click="editGitURL()"><span class="glyphicon glyphicon-pencil"></span></a> 
 		</div>
@@ -41,6 +41,7 @@
 			DocURL:<span>{{modal.review.docURL}}</span> <a ng-click="editDocURL()"><span class="glyphicon glyphicon-pencil"></span></a> 
 		</div>
 
+		<br>
 		<div class="row r-wp-small-margin-bottom">
 			<div class="col-md-4">
 				<p>创建时间：{{modal.review.createDate | date:"yyyy-MM-dd"}}</p>
@@ -73,6 +74,7 @@
 			</div>
 		</div>
 
+		<br>
 		<div class="row r-wp-small-margin-bottom">
 			<div class="col-md-4">
 				<div class="r-wp-width-5em r-float-left">所有人：</div>
@@ -89,7 +91,8 @@
 			</div>
 
 		</div>
-
+		
+		<br>
 		<div class="row r-wp-small-margin-bottom">
 			<div class="col-md-4">
 				<div class="r-float-left">评审者：</div>

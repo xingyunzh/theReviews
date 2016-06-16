@@ -473,9 +473,8 @@ app.controller("workpanelController", function($rootScope, $scope, $q, teamServi
 	}
 
 	$scope.editReview = function (review) {
-		 reviewService.reviewPanelModalStep(review.name, review).then(function success(reviewId) {
+		 reviewService.reviewPanelModalStep("编辑评审", review).then(function success(reviewId) {
 
-		 	 
 		 }); 		 
 	}
 

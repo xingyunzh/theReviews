@@ -84,14 +84,23 @@ exports.getByTeams = function (req, res) {
 	 	 return ObjectId(teamId);
 	 }); 
 
-	 Project.find({team:{$in : teamIds}}).populate("owner team productOwner reviews stakeholders changeRequests iterations").exec().then(function success(argument) {
-	 	 /* body... */ 
-	 	 res.json(util.wrapBody(argument));
-	 }, function fail(argument) {
-	 	 // body...  
-	 	 res.json(util.wrapBody(argument, "E"));
-	 });
-
+	Project.find({
+			team: {
+				$in: teamIds
+			}
+		}).populate("owner team productOwner stakeholders changeRequests iterations")
+		.populate({
+			path: "reviews",
+			populate:{
+				path:"owner mediator reviewers approvers observers"
+			}
+		}).exec().then(function success(argument) {
+			/* body... */
+			res.json(util.wrapBody(argument));
+		}, function fail(argument) {
+			// body...  
+			res.json(util.wrapBody(argument, "E"));
+		});
 }
 
 exports.updateById = function (req, res) {

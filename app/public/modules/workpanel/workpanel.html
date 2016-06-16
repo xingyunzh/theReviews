@@ -173,24 +173,26 @@
 
 						</div>
 
-						<p>项目评审：</p>
-						<div class="r-wp-carousel-card">
+						<div class="r-wp-carousel-card" ng-hide="panel.workingProject.reviews == null || panel.workingProject.reviews.length == 0">
 							<uib-carousel active interval="5000">
 								<uib-slide ng-repeat="review in panel.workingProject.reviews" index="panel.workingProject.reviews.indexOf(review)">
 									<a ng-click="editReview(review)">
-										<img alt="背景图" ng-src="/images/review_bg_{{panel.workingProject.reviews.indexOf(review) % 2 + 1}}.jpg" style="margin:auto;">
+										<img alt="背景图" ng-src="/images/review_bg_{{panel.workingProject.reviews.indexOf(review) % 2 + 1}}.jpg" style="margin:auto;opacity=0.7；">
+										
 
 										<div class="carousel-caption">
-											<h3>{{review.name}}</h3>
-											<p>{{review.startDate | date:'yyyy-MM-dd'}}</p>
-											<p>{{review.dueDate | date:'yyyy-MM-dd'}}</p>
-
+											<h2>{{review.name}}</h2>
+											
+											<h5>开始：{{review.startDate | date:'yyyy-MM-dd'}}</h5>   
+											<h5>结束：{{review.dueDate | date:'yyyy-MM-dd'}}</h5>
+											<h3>{{review.owner.name}}</h3>
 										</div>
 									</a>
 
 								</uib-slide>
 							</uib-carousel>
 						</div>
+						<i ng-show = "panel.workingProject.reviews == null || panel.workingProject.reviews.length == 0">该项目还没有创建相关评审</i>
 						
 						<!-- <button class="btn btn-success r-float-right" ng-click="saveWorkingProject()">保存更改</button> -->
 					</div>
