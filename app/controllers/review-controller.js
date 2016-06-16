@@ -1,7 +1,7 @@
 var _ = require("lodash");
 var util = require("../util/shared/util");
 
-var Review = require("../model/Review");
+var Review = require("../model/review");
 var ObjectId = require("mongoose").mongo.ObjectId;
 
 
