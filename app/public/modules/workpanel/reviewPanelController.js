@@ -1,9 +1,13 @@
 app.controller("reviewPanelController", function ($rootScope, $scope, $uibModalInstance, title, review, reviewService, util) {
+	var defaultStartDate = new Date();
+	var defaultDueDate = new Date().setDate(new Date().getDate() + 7);
+
 	$scope.title = title;
 
 	$scope.modal = {
 		isCreating: review == null ? true : false,
 		"review": review == null ? {
+			name:"",
 			createDate: new Date(),
 			owner: $rootScope.currentUser,
 			mediator: $rootScope.currentUser,
@@ -11,15 +15,19 @@ app.controller("reviewPanelController", function ($rootScope, $scope, $uibModalI
 			contentType: 0,
 			reviewers:[],
 			approvers:[],
-			observers:[]
+			observers:[],
+			startDate:defaultStartDate,
+			dueDate:defaultDueDate,
+			gitURL:"",
+			docURL:""
 		} : review,
 		reviewDatePicker: {
 			options: {
 				minDate: new Date().setDate(new Date().getDate() - 1),
 				startingDay: 1
 			},
-			startDate: review == null ? new Date() : new Date(review.startDate),
-			dueDate: review == null ? new Date().setDate(new Date().getDate() + 7) : new Date(review.dueDate),
+			startDate: review == null ? defaultStartDate : new Date(review.startDate),
+			dueDate: review == null ?  defaultDueDate: new Date(review.dueDate),
 
 		},
 

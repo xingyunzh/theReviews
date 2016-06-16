@@ -28,7 +28,9 @@ app.controller(kUserModalSuggestionController, function ($scope, $uibModalInstan
 
 	$scope.ok = function () {
 		 /* body... */ 
-		 $uibModalInstance.close($scope.modal.user);
+		 if ($scope.modal.user) {
+		 	$uibModalInstance.close($scope.modal.user);
+		 }
 	};
 
 	$scope.cancel = function () {

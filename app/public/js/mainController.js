@@ -34,7 +34,7 @@ app.controller('mainController', ['$scope', '$rootScope', function ($scope, $roo
 		 if ($rootScope.currentUser) {
 		 	$rootScope.$state.go("nav.workpanel");
 		 }else {
-		 	//TBD
+		 	$rootScope.$state.go("login"); 
 		 };
 	}
 }]);

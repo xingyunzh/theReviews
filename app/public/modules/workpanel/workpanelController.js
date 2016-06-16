@@ -100,7 +100,8 @@ app.controller("workpanelController", function($rootScope, $scope, $q, teamServi
 			util.confirmationStep("发送邀请", "确认要发送邀请给：" + username + " " + $scope.panel.inviteRoleCN + "?").then(function ok(argument) {
 				var t = $scope.panel.teams[$scope.panel.activeTeamTabIndex];
 				var update = {};
-				if ($scope.panel.inviteRoleCN === "教练") {
+				var isForCoach = $scope.panel.inviteRoleCN === "教练";
+				if (isForCoach) {
 					coaches = t.coaches == null ? [] : t.coaches;
 					coaches.push(user._id);
 
@@ -115,10 +116,11 @@ app.controller("workpanelController", function($rootScope, $scope, $q, teamServi
 					update.members = members;
 				};
 
-				teamService.updateTeamById(t._id, update).then(function success() {
+				teamService.updateTeamById(t._id, update).then(function success(team) {
 					toastr.info("添加成功！", "Info");
 					$scope.panel.usernameToInvite = null;
-					$scope.fetchTeams(t.name);
+					t.coaches = team.coaches;
+					t.members = team.members;
 
 				}, function fail(data) {
 					toastr.warning("添加失败" + data, "错误", {
@@ -180,10 +182,9 @@ app.controller("workpanelController", function($rootScope, $scope, $q, teamServi
 				members: t.members
 			};
 
-			teamService.updateTeamById(t._id, update).then(function success() {
+			teamService.updateTeamById(t._id, update).then(function success(team) {
 				toastr.info("删除成功！", "Info");
-				$scope.fetchTeams(t.name);
-
+				t.members = team.members;
 			}, function fail(data) {
 				toastr.warning("删除失败" + data, "错误", {
 					timeOut: 0,
@@ -208,10 +209,9 @@ app.controller("workpanelController", function($rootScope, $scope, $q, teamServi
 				coaches: t.coaches
 			};
 
-			teamService.updateTeamById(t._id, update).then(function success() {
+			teamService.updateTeamById(t._id, update).then(function success(team) {
 				toastr.info("删除成功！", "Info");
-				$scope.fetchTeams(t.name);
-
+				t.coaches = team.coaches;
 			}, function fail(data) {
 				toastr.warning("删除失败" + data, "错误", {
 					timeOut: 0,

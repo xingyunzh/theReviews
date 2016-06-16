@@ -11,7 +11,7 @@ exports.create = function (req, res) {
 	 	impact:req.body.impact,
 	 	createDate : new Date(),
 	 	dueDate : req.body.dueDate,
-	 	owner : req.user,
+	 	owner : req.body.owner == null ? ObjectId(req.user._id) : ObjectId(req.body.owner),
 	 	
 	 	reviews : _.map(req.body.reviews, function (memberId) {
 	 		 return ObjectId(memberId);

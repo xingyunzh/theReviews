@@ -34,7 +34,7 @@ exports.create = function (req, res) {
 	 	name : req.body.name,
 	 	description : req.body.description,
 	 	setupDate : new Date(),
-	 	leader : req.user,
+	 	leader : req.body.leader == null ? req.user : ObjectId(req.body.leader),
 	 	
 	 	members : fitMembersToSchema(req.body.members),
 	 	coaches : fitCoachesToSchema(req.body.coaches)
@@ -100,7 +100,7 @@ exports.getByUser = function (req, res) {
 
 exports.getById = function(req, res) {
 	 // body...  
-	 Team.findById(req.params.id).populate("members coaches leader").exec().then(function success(data) {
+	 Team.findById(req.params.id).populate("leader members.user coaches").exec().then(function success(data) {
 	 	 // body...  
 	 	 res.json(util.wrapBody(data));
 	 }, function fail (error) {
@@ -111,7 +111,7 @@ exports.getById = function(req, res) {
 
 exports.getByName = function (req, res) {
 	 /* body... */ 
-	 Team.find({name:req.params.name}).populate("members coaches leader").exec().then(function success(argument) {
+	 Team.find({name:req.params.name}).populate("leader members.user coaches").exec().then(function success(argument) {
 	 	 /* body... */ 
 	 	 res.json(util.wrapBody(argument));
 	 }, function fail(argument) {
@@ -131,7 +131,7 @@ exports.updateById = function (req, res) {
 	 	updateContent.coaches = fitCoachesToSchema(updateContent.coaches);
 	 };
 
-	 Team.findByIdAndUpdate(req.params.id, updateContent,{"new" : true}).exec().then(function success(argument) {
+	 Team.findByIdAndUpdate(req.params.id, updateContent,{"new" : true}).populate("leader members.user coaches").exec().then(function success(argument) {
 	 	 res.json(util.wrapBody(argument));
 	 }, function fail(argument) {
 	 	 res.json(util.wrapBody(argument, "E"));

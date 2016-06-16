@@ -14,7 +14,7 @@ exports.create = function (req, res) {
 	 	phase : Project.schema.statics.Phase.Initial,
 	 	state : Project.schema.statics.State.Active,
 
-	 	owner : req.user,
+	 	owner : req.body.owner == null ? req.user : ObjectId(req.body.owner),
 	 	team : ObjectId(req.body.team),
 	 	productOwner : ObjectId(req.body.productOwner),
 	 	stakehoders : _.map(req.body.stakehoders, function (stakeholderId) {
@@ -105,13 +105,20 @@ exports.getByTeams = function (req, res) {
 
 exports.updateById = function (req, res) {
 	 /* body... */ 
-	 var updateContent = req.body.updateContent;
+	var updateContent = req.body.updateContent;
 
-	 Project.findByIdAndUpdate(req.params.id, updateContent,{"new" : true}).populate("owner team productOwner stakeholders reviews changeRequests iterations").exec().then(function success(argument) {
-	 	 res.json(util.wrapBody(argument));
-	 }, function fail(argument) {
-	 	 res.json(util.wrapBody(argument, "E"));
-	 });
+	Project.findByIdAndUpdate(req.params.id, updateContent, {
+		"new": true
+	}).populate("owner team productOwner stakeholders changeRequests iterations").populate({
+		path: "reviews",
+		populate: {
+			path: "owner mediator reviewers approvers observers"
+		}
+	}).exec().then(function success(argument) {
+		res.json(util.wrapBody(argument));
+	}, function fail(argument) {
+		res.json(util.wrapBody(argument, "E"));
+	});
 }
 
 exports.deleteById = function (req, res) {

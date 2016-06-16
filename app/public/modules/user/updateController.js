@@ -1,5 +1,5 @@
 app.controller("updateController", function($rootScope, $scope, $q, userService) {
-	$scope.formdata = $rootScope.user;
+	$scope.formdata = $rootScope.currentUser;
 	$scope.formdata.password = "";
 
 	function contentValidate(argument) {

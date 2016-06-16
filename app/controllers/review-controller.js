@@ -8,7 +8,7 @@ var ObjectId = require("mongoose").mongo.ObjectId;
 exports.create = function (req, res) { 
 	 var review = new Review({
 	 	name : req.body.name,
-	 	owner : ObjectId(req.user._id),
+	 	owner : req.body.owner == null ? ObjectId(req.user._id) : ObjectId(req.body.owner),
 
 	 	reviewers :  _.map(req.body.reviewers, function (memberId) {
 	 		 return ObjectId(memberId);
