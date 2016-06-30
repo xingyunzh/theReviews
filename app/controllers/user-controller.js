@@ -181,7 +181,7 @@ exports.updateProfile = function (req, res) {
 				user.coachProfile[k] = updateContent.coachProfile[k];
 			};
 
-			usre.coachProfile.save(function (error) {
+			user.coachProfile.save(function (error) {
 				 res.json(util.wrapBody(error, "E:save error"));
 			});
 		}
@@ -190,7 +190,7 @@ exports.updateProfile = function (req, res) {
 				user.playerProfile[k] = updateContent.playerProfile[k];
 			};
 
-			usre.playerProfile.save(function (error) {
+			user.playerProfile.save(function (error) {
 				 res.json(util.wrapBody(error, "E:save error"));
 			});
 		}
